@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ثبت‌نام | رنگینه</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container header-container">
+
+        <a href="index.html" class="logo">
+
+            <span class="logo-icon">
+                ر
+            </span>
+
+            رنگینه
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="auth-page container">
+
+    <form
+        class="auth-card"
+        id="registerForm"
+    >
+
+        <span class="section-label">
+            عضویت در رنگینه
+        </span>
+
+        <h1>
+            ساخت حساب
+        </h1>
+
+
+        <label>
+            نام
+
+            <input
+                type="text"
+                id="registerName"
+                class="input"
+                required
+            >
+
+        </label>
+
+
+        <label>
+            ایمیل
+
+            <input
+                type="email"
+                id="registerEmail"
+                class="input"
+                required
+            >
+
+        </label>
+
+
+        <label>
+            رمز عبور
+
+            <input
+                type="password"
+                id="registerPassword"
+                class="input"
+                minlength="4"
+                required
+            >
+
+        </label>
+
+
+        <button
+            type="submit"
+            class="button button-primary"
+        >
+            ثبت‌نام
+        </button>
+
+
+        <p>
+
+            قبلاً ثبت‌نام کردی؟
+
+            <a href="login.html">
+                وارد شو
+            </a>
+
+        </p>
+
+
+        <div id="registerMessage"></div>
+
+    </form>
+
+</main>
+
+
+<script src="js/auth.js"></script>
+
+</body>
+
+</html>

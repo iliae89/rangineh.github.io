@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ورود | رنگینه</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container header-container">
+
+        <a href="index.html" class="logo">
+
+            <span class="logo-icon">
+                ر
+            </span>
+
+            رنگینه
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="auth-page container">
+
+    <form
+        class="auth-card"
+        id="loginForm"
+    >
+
+        <span class="section-label">
+            خوش برگشتی
+        </span>
+
+        <h1>
+            ورود به حساب
+        </h1>
+
+
+        <label>
+            ایمیل
+
+            <input
+                type="email"
+                id="loginEmail"
+                class="input"
+                required
+                placeholder="example@gmail.com"
+            >
+
+        </label>
+
+
+        <label>
+            رمز عبور
+
+            <input
+                type="password"
+                id="loginPassword"
+                class="input"
+                required
+                minlength="4"
+            >
+
+        </label>
+
+
+        <button
+            type="submit"
+            class="button button-primary"
+        >
+            ورود
+        </button>
+
+
+        <p>
+            حساب نداری؟
+
+            <a href="register.html">
+                ثبت‌نام کن
+            </a>
+
+        </p>
+
+
+        <div id="loginMessage"></div>
+
+    </form>
+
+</main>
+
+
+<script src="js/auth.js"></script>
+
+</body>
+
+</html>

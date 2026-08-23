@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="رنگینه - فروشگاه تخصصی انواع رنگ">
+    <meta name="theme-color" content="#B85C38">
+
+    <title>رنگینه | فروشگاه رنگ</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container header-container">
+
+        <a href="index.html" class="logo">
+            <span class="logo-icon">ر</span>
+            <span>رنگینه</span>
+        </a>
+
+        <nav class="navigation">
+
+            <a href="index.html" class="active">
+                فروشگاه
+            </a>
+
+            <a href="about.html">
+                درباره ما
+            </a>
+
+            <a href="account.html">
+                حساب کاربری
+            </a>
+
+        </nav>
+
+        <div class="header-actions">
+
+            <a href="cart.html" class="cart-button">
+                🛒
+                <span class="cart-count">0</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="container hero-container">
+
+            <div class="hero-content">
+
+                <span class="section-label">
+                    فروشگاه تخصصی رنگ
+                </span>
+
+                <h1>
+                    رنگی که به
+                    <span>فضا شخصیت</span>
+                    می‌دهد.
+                </h1>
+
+                <p>
+                    انواع رنگ‌های ساختمانی، صنعتی، چوب و تخصصی
+                    را با مشخصات کامل پیدا و انتخاب کن.
+                </p>
+
+                <a href="#products" class="button button-primary">
+                    مشاهده محصولات
+                </a>
+
+            </div>
+
+
+            <div class="hero-visual">
+
+                <div class="paint-drop"></div>
+
+                <div class="paint-can paint-can-one">
+                    <span>رنگینه</span>
+                </div>
+
+                <div class="paint-can paint-can-two">
+                    <span>COLOR</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SHOP -->
+
+    <section class="shop container" id="products">
+
+        <!-- SEARCH BAR -->
+
+        <div class="search-bar">
+
+            <div class="search-box">
+
+                <span>⌕</span>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="نام رنگ، برند یا کد رنگ را جستجو کنید..."
+                >
+
+            </div>
+
+
+            <select id="sortSelect">
+
+                <option value="default">
+                    مرتب‌سازی
+                </option>
+
+                <option value="newest">
+                    جدیدترین
+                </option>
+
+                <option value="cheap">
+                    ارزان‌ترین
+                </option>
+
+                <option value="expensive">
+                    گران‌ترین
+                </option>
+
+                <option value="popular">
+                    پرفروش‌ترین
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="shop-layout">
+
+            <!-- FILTERS -->
+
+            <aside class="filters">
+
+                <div class="filters-header">
+
+                    <h2>
+                        فیلترها
+                    </h2>
+
+                    <button id="clearFilters">
+                        پاک کردن
+                    </button>
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        قیمت
+                    </h3>
+
+                    <div class="price-values">
+
+                        <span id="minPrice">
+                            ۰ تومان
+                        </span>
+
+                        <span id="maxPrice">
+                            ۲۰ میلیون
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="priceRange"
+                        min="0"
+                        max="20000000"
+                        step="100000"
+                        value="20000000"
+                    >
+
+                </div>
+
+
+                <!-- COLOR CODE -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        کد رنگی
+                    </h3>
+
+                    <input
+                        type="text"
+                        id="colorCodeFilter"
+                        class="input"
+                        placeholder="#FFFFFF"
+                    >
+
+                </div>
+
+
+                <!-- COLOR NAME -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        اسم رنگ
+                    </h3>
+
+                    <input
+                        type="text"
+                        id="colorNameFilter"
+                        class="input"
+                        placeholder="مثلاً سفید"
+                    >
+
+                </div>
+
+
+                <!-- USAGE -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        کاربری رنگ
+                    </h3>
+
+                    <div id="usageFilters" class="checkbox-list"></div>
+
+                </div>
+
+
+                <!-- VOLUME -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        حجم رنگ
+                    </h3>
+
+                    <div id="volumeFilters" class="checkbox-list"></div>
+
+                </div>
+
+
+                <!-- PACKAGE -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        بسته‌بندی
+                    </h3>
+
+                    <div id="packageFilters" class="checkbox-list"></div>
+
+                </div>
+
+
+                <!-- FEATURES -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        ویژگی تخصصی
+                    </h3>
+
+                    <div id="featureFilters" class="checkbox-list"></div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- PRODUCTS -->
+
+            <section class="products-section">
+
+                <div class="products-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            محصولات
+                        </span>
+
+                        <h2>
+                            انتخاب کن، رنگ بده
+                        </h2>
+
+                    </div>
+
+                    <span
+                        id="resultCount"
+                        class="result-count"
+                    ></span>
+
+                </div>
+
+
+                <div
+                    id="productsGrid"
+                    class="products-grid"
+                ></div>
+
+
+                <div
+                    id="emptyState"
+                    class="empty-state hidden"
+                >
+
+                    <div class="empty-icon">
+                        🎨
+                    </div>
+
+                    <h3>
+                        محصولی پیدا نشد
+                    </h3>
+
+                    <p>
+                        فیلترها یا عبارت جستجو را تغییر دهید.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div>
+
+            <div class="logo footer-logo">
+
+                <span class="logo-icon">
+                    ر
+                </span>
+
+                رنگینه
+
+            </div>
+
+            <p>
+                فروشگاه آنلاین انواع رنگ
+                با تمرکز روی انتخاب ساده و دقیق.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                دسترسی سریع
+            </h3>
+
+            <a href="index.html">
+                فروشگاه
+            </a>
+
+            <a href="about.html">
+                درباره ما
+            </a>
+
+            <a href="account.html">
+                حساب کاربری
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                تماس با ما
+            </h3>
+
+            <p>
+                ۰۲۱-۰۰۰۰۰۰۰۰
+            </p>
+
+            <p>
+                شنبه تا پنجشنبه ۹ تا ۱۸
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © ۱۴۰۵ رنگینه - تمامی حقوق محفوظ است.
+
+    </div>
+
+</footer>
+
+
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

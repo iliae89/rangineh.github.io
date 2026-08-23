@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>پنل مدیریت | رنگینه</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="container header-container">
+
+        <a href="index.html" class="logo">
+
+            <span class="logo-icon">
+                ر
+            </span>
+
+            رنگینه
+
+        </a>
+
+
+        <nav class="navigation">
+
+            <a href="index.html">
+                فروشگاه
+            </a>
+
+            <a
+                href="admin.html"
+                class="active"
+            >
+                پنل مدیریت
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="container page-space">
+
+    <div class="page-title">
+
+        <span class="section-label">
+            مدیریت فروشگاه
+        </span>
+
+        <h1>
+            پنل مدیریت رنگینه
+        </h1>
+
+    </div>
+
+
+    <div class="admin-layout">
+
+        <aside class="admin-sidebar">
+
+            <button
+                class="admin-tab active"
+                data-tab="dashboard"
+            >
+                داشبورد
+            </button>
+
+            <button
+                class="admin-tab"
+                data-tab="products"
+            >
+                محصولات
+            </button>
+
+            <button
+                class="admin-tab"
+                data-tab="orders"
+            >
+                سفارش‌ها
+            </button>
+
+            <button
+                class="admin-tab"
+                data-tab="users"
+            >
+                کاربران
+            </button>
+
+            <button
+                class="admin-tab"
+                data-tab="reviews"
+            >
+                نظرات
+            </button>
+
+        </aside>
+
+
+        <section class="admin-content">
+
+            <!-- DASHBOARD -->
+
+            <div
+                class="admin-panel active"
+                id="dashboard"
+            >
+
+                <div class="stats">
+
+                    <div class="stat-card">
+
+                        <span>
+                            محصولات
+                        </span>
+
+                        <strong id="productCount">
+                            ۰
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <span>
+                            سفارش‌ها
+                        </span>
+
+                        <strong>
+                            ۱۲
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <span>
+                            کاربران
+                        </span>
+
+                        <strong>
+                            ۸۷
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCTS -->
+
+            <div
+                class="admin-panel"
+                id="products"
+            >
+
+                <div class="admin-box">
+
+                    <div class="admin-box-header">
+
+                        <h2>
+                            محصولات
+                        </h2>
+
+                        <button
+                            id="openProductModal"
+                            class="button button-primary"
+                        >
+                            + افزودن محصول
+                        </button>
+
+                    </div>
+
+
+                    <div id="adminProductsList"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ORDERS -->
+
+            <div
+                class="admin-panel"
+                id="orders"
+            >
+
+                <div class="admin-box">
+
+                    <h2>
+                        سفارش‌ها
+                    </h2>
+
+                    <p>
+                        مدیریت واقعی سفارش‌ها بعد از اتصال
+                        Backend جنگو فعال خواهد شد.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- USERS -->
+
+            <div
+                class="admin-panel"
+                id="users"
+            >
+
+                <div class="admin-box">
+
+                    <h2>
+                        کاربران
+                    </h2>
+
+                    <p>
+                        مدیریت کاربران در نسخه Backend فعال می‌شود.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- REVIEWS -->
+
+            <div
+                class="admin-panel"
+                id="reviews"
+            >
+
+                <div class="admin-box">
+
+                    <h2>
+                        نظرات
+                    </h2>
+
+                    <p>
+                        مدیریت نظرات در نسخه Backend فعال می‌شود.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- PRODUCT MODAL -->
+
+<div
+    class="modal hidden"
+    id="productModal"
+>
+
+    <div class="modal-content">
+
+        <button
+            class="modal-close"
+            id="closeProductModal"
+        >
+            ×
+        </button>
+
+        <h2>
+            افزودن محصول
+        </h2>
+
+
+        <form id="productForm">
+
+            <input
+                id="productName"
+                class="input"
+                placeholder="نام محصول"
+                required
+            >
+
+
+            <input
+                id="productPrice"
+                class="input"
+                type="number"
+                placeholder="قیمت"
+                required
+            >
+
+
+            <input
+                id="productColor"
+                class="input"
+                placeholder="کد رنگ مثل #B85C38"
+                required
+            >
+
+
+            <input
+                id="productColorName"
+                class="input"
+                placeholder="نام رنگ"
+                required
+            >
+
+
+            <input
+                id="productUsage"
+                class="input"
+                placeholder="کاربری"
+                required
+            >
+
+
+            <input
+                id="productVolume"
+                class="input"
+                placeholder="حجم"
+                required
+            >
+
+
+            <input
+                id="productPackage"
+                class="input"
+                placeholder="نوع بسته‌بندی"
+                required
+            >
+
+
+            <input
+                id="productFeature"
+                class="input"
+                placeholder="ویژگی تخصصی"
+                required
+            >
+
+
+            <textarea
+                id="productDescription"
+                class="input"
+                placeholder="توضیحات محصول"
+                required
+            ></textarea>
+
+
+            <button
+                class="button button-primary"
+                type="submit"
+            >
+                ذخیره محصول
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+
+</html>
