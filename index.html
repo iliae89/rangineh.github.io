@@ -1,437 +1,138 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="رنگینه؛ فروشگاه انواع رنگ ساختمانی، صنعتی و دکوراتیو"
-    >
+    <meta name="description" content="رنگینه - فروشگاه تخصصی انواع رنگ">
+    <meta name="theme-color" content="#B85C38">
 
     <title>رنگینه | فروشگاه رنگ</title>
 
-    <link
-        rel="stylesheet"
-        href="css/style.css"
-    >
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
-
 <body>
-
-
-<!-- =========================================
-     HEADER
-========================================= -->
 
 <header class="header">
 
     <div class="container header-container">
 
-
-        <!-- LOGO -->
-
-        <a
-            href="index.html"
-            class="logo"
-        >
-
-            <span class="logo-icon">
-                🎨
-            </span>
-
-            <span>
-                رنگینه
-            </span>
-
+        <a href="index.html" class="logo">
+            <span class="logo-icon">ر</span>
+            <span>رنگینه</span>
         </a>
-
-
-        <!-- SEARCH -->
-
-        <div class="header-search">
-
-            <span class="search-icon">
-                🔎
-            </span>
-
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="جستجوی نام رنگ، کد رنگ و..."
-                autocomplete="off"
-            >
-
-        </div>
-
-
-        <!-- NAVIGATION -->
 
         <nav class="navigation">
 
-
-            <a
-                href="index.html"
-                class="active"
-            >
+            <a href="index.html" class="active">
                 فروشگاه
             </a>
-
 
             <a href="about.html">
                 درباره ما
             </a>
 
-
-            <!-- =================================
-                 ACCOUNT
-            ================================== -->
-
-            <div class="account-wrapper">
-
-                <button
-                    type="button"
-                    class="account-button"
-                    id="accountButton"
-                    aria-expanded="false"
-                    aria-controls="accountMenu"
-                >
-
-                    <span class="account-icon">
-                        👤
-                    </span>
-
-                    <span class="account-button-text">
-                        حساب کاربری
-                    </span>
-
-                    <span class="account-arrow">
-                        ⌄
-                    </span>
-
-                </button>
-
-
-                <!-- ACCOUNT DROPDOWN -->
-
-                <div
-                    class="account-menu"
-                    id="accountMenu"
-                >
-
-
-                    <!-- GUEST -->
-
-                    <div
-                        id="guestAccountMenu"
-                        class="account-menu-section"
-                    >
-
-                        <div class="account-menu-title">
-                            👋 خوش آمدید
-                        </div>
-
-                        <p class="account-menu-description">
-                            برای مدیریت حساب خود وارد شوید.
-                        </p>
-
-
-                        <a
-                            href="login.html"
-                            class="account-menu-button primary"
-                        >
-                            ورود به حساب
-                        </a>
-
-
-                        <a
-                            href="register.html"
-                            class="account-menu-button secondary"
-                        >
-                            ایجاد حساب
-                        </a>
-
-                    </div>
-
-
-                    <!-- LOGGED USER -->
-
-                    <div
-                        id="userAccountMenu"
-                        class="account-menu-section hidden"
-                    >
-
-                        <div class="account-user">
-
-                            <div class="account-avatar">
-                                👤
-                            </div>
-
-                            <div>
-
-                                <strong id="accountUserName">
-                                    کاربر
-                                </strong>
-
-                                <span id="accountUserEmail">
-                                    user@example.com
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="account-menu-divider"></div>
-
-
-                        <a
-                            href="account.html"
-                            class="account-menu-item"
-                        >
-                            👤 حساب من
-                        </a>
-
-
-                        <a
-                            href="cart.html"
-                            class="account-menu-item"
-                        >
-                            🛒 سبد خرید
-                        </a>
-
-
-                        <!-- ADMIN -->
-
-                        <a
-                            href="admin.html"
-                            id="adminPanelLink"
-                            class="account-menu-item admin-menu-item hidden"
-                        >
-                            🛠️ پنل مدیریت
-                        </a>
-
-
-                        <div class="account-menu-divider"></div>
-
-
-                        <button
-                            type="button"
-                            id="logoutButton"
-                            class="account-menu-item logout-item"
-                        >
-                            🚪 خروج از حساب
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================
-                 ADMIN DIRECT BUTTON
-            ================================== -->
-
-            <a
-                href="admin.html"
-                id="adminHeaderButton"
-                class="admin-header-button hidden"
-                title="ورود به پنل مدیریت"
-            >
-
-                <span class="admin-header-icon">
-                    🛠️
-                </span>
-
-                <span>
-                    پنل مدیریت
-                </span>
-
-            </a>
-
-
-            <!-- =================================
-                 CART
-            ================================== -->
-
-            <a
-                href="cart.html"
-                class="cart-button"
-                aria-label="سبد خرید"
-            >
-
-                <span>
-                    🛒
-                </span>
-
-                <span class="cart-count">
-                    ۰
-                </span>
-
+            <a href="account.html">
+                حساب کاربری
             </a>
 
         </nav>
+
+        <div class="header-actions">
+
+            <a href="cart.html" class="cart-button">
+                🛒
+                <span class="cart-count">0</span>
+            </a>
+
+        </div>
 
     </div>
 
 </header>
 
 
+<main>
 
-<!-- =========================================
-     HERO
-========================================= -->
+    <!-- HERO -->
 
-<section class="hero">
+    <section class="hero">
 
-    <div class="container hero-container">
+        <div class="container hero-container">
 
+            <div class="hero-content">
 
-        <div class="hero-text">
-
-            <span class="section-label">
-                فروشگاه تخصصی رنگ
-            </span>
-
-
-            <h1>
-
-                رنگی که
-
-                <span>
-                    فضای تو
+                <span class="section-label">
+                    فروشگاه تخصصی رنگ
                 </span>
 
-                را می‌سازد.
+                <h1>
+                    رنگی که به
+                    <span>فضا شخصیت</span>
+                    می‌دهد.
+                </h1>
 
-            </h1>
+                <p>
+                    انواع رنگ‌های ساختمانی، صنعتی، چوب و تخصصی
+                    را با مشخصات کامل پیدا و انتخاب کن.
+                </p>
 
-
-            <p>
-                انواع رنگ‌های ساختمانی، صنعتی و دکوراتیو
-                را با مشخصات کامل در رنگینه پیدا کن.
-            </p>
-
-
-            <div class="hero-buttons">
-
-                <a
-                    href="#products"
-                    class="button button-primary"
-                >
+                <a href="#products" class="button button-primary">
                     مشاهده محصولات
                 </a>
 
+            </div>
 
-                <a
-                    href="about.html"
-                    class="button button-secondary"
+
+            <div class="hero-visual">
+
+                <div class="paint-drop"></div>
+
+                <div class="paint-can paint-can-one">
+                    <span>رنگینه</span>
+                </div>
+
+                <div class="paint-can paint-can-two">
+                    <span>COLOR</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SHOP -->
+
+    <section class="shop container" id="products">
+
+        <!-- SEARCH BAR -->
+
+        <div class="search-bar">
+
+            <div class="search-box">
+
+                <span>⌕</span>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="نام رنگ، برند یا کد رنگ را جستجو کنید..."
                 >
-                    درباره رنگینه
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="hero-visual">
-
-            <div class="paint-can paint-can-one">
-
-                <span>
-                    رنگینه
-                </span>
 
             </div>
 
 
-            <div class="paint-can paint-can-two">
+            <select id="sortSelect">
 
-                <span>
-                    COLOR
-                </span>
-
-            </div>
-
-
-            <div class="paint-drop"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================
-     SHOP
-========================================= -->
-
-<main
-    class="container shop"
-    id="products"
->
-
-
-    <!-- TOP BAR -->
-
-    <section class="products-heading">
-
-        <div>
-
-            <span class="section-label">
-                فروشگاه
-            </span>
-
-
-            <h2>
-                محصولات رنگینه
-            </h2>
-
-
-            <span
-                id="resultCount"
-                class="result-count"
-            >
-                ۰ محصول
-            </span>
-
-        </div>
-
-
-        <div class="toolbar-controls">
-
-            <label
-                for="sortSelect"
-                class="sort-label"
-            >
-                مرتب‌سازی:
-            </label>
-
-
-            <select
-                id="sortSelect"
-                class="input sort-select"
-            >
+                <option value="default">
+                    مرتب‌سازی
+                </option>
 
                 <option value="newest">
                     جدیدترین
-                </option>
-
-                <option value="popular">
-                    پرفروش‌ترین
                 </option>
 
                 <option value="cheap">
@@ -442,286 +143,235 @@
                     گران‌ترین
                 </option>
 
+                <option value="popular">
+                    پرفروش‌ترین
+                </option>
+
             </select>
+
+        </div>
+
+
+        <div class="shop-layout">
+
+            <!-- FILTERS -->
+
+            <aside class="filters">
+
+                <div class="filters-header">
+
+                    <h2>
+                        فیلترها
+                    </h2>
+
+                    <button id="clearFilters">
+                        پاک کردن
+                    </button>
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        قیمت
+                    </h3>
+
+                    <div class="price-values">
+
+                        <span id="minPrice">
+                            ۰ تومان
+                        </span>
+
+                        <span id="maxPrice">
+                            ۲۰ میلیون
+                        </span>
+
+                    </div>
+
+                    <input
+                        type="range"
+                        id="priceRange"
+                        min="0"
+                        max="20000000"
+                        step="100000"
+                        value="20000000"
+                    >
+
+                </div>
+
+
+                <!-- COLOR CODE -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        کد رنگی
+                    </h3>
+
+                    <input
+                        type="text"
+                        id="colorCodeFilter"
+                        class="input"
+                        placeholder="#FFFFFF"
+                    >
+
+                </div>
+
+
+                <!-- COLOR NAME -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        اسم رنگ
+                    </h3>
+
+                    <input
+                        type="text"
+                        id="colorNameFilter"
+                        class="input"
+                        placeholder="مثلاً سفید"
+                    >
+
+                </div>
+
+
+                <!-- USAGE -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        کاربری رنگ
+                    </h3>
+
+                    <div id="usageFilters" class="checkbox-list"></div>
+
+                </div>
+
+
+                <!-- VOLUME -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        حجم رنگ
+                    </h3>
+
+                    <div id="volumeFilters" class="checkbox-list"></div>
+
+                </div>
+
+
+                <!-- PACKAGE -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        بسته‌بندی
+                    </h3>
+
+                    <div id="packageFilters" class="checkbox-list"></div>
+
+                </div>
+
+
+                <!-- FEATURES -->
+
+                <div class="filter-section">
+
+                    <h3>
+                        ویژگی تخصصی
+                    </h3>
+
+                    <div id="featureFilters" class="checkbox-list"></div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- PRODUCTS -->
+
+            <section class="products-section">
+
+                <div class="products-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            محصولات
+                        </span>
+
+                        <h2>
+                            انتخاب کن، رنگ بده
+                        </h2>
+
+                    </div>
+
+                    <span
+                        id="resultCount"
+                        class="result-count"
+                    ></span>
+
+                </div>
+
+
+                <div
+                    id="productsGrid"
+                    class="products-grid"
+                ></div>
+
+
+                <div
+                    id="emptyState"
+                    class="empty-state hidden"
+                >
+
+                    <div class="empty-icon">
+                        🎨
+                    </div>
+
+                    <h3>
+                        محصولی پیدا نشد
+                    </h3>
+
+                    <p>
+                        فیلترها یا عبارت جستجو را تغییر دهید.
+                    </p>
+
+                </div>
+
+            </section>
 
         </div>
 
     </section>
 
-
-
-    <!-- SEARCH / FILTER BAR -->
-
-    <div class="search-bar">
-
-        <div class="search-box">
-
-            <span>
-                🔎
-            </span>
-
-            <input
-                type="search"
-                id="shopSearchInput"
-                placeholder="جستجوی محصول..."
-                autocomplete="off"
-            >
-
-        </div>
-
-    </div>
-
-
-
-    <!-- SHOP LAYOUT -->
-
-    <div class="shop-layout">
-
-
-        <!-- =================================
-             FILTERS
-        ================================== -->
-
-        <aside class="filters">
-
-            <div class="filters-header">
-
-                <div>
-
-                    <span class="section-label">
-                        فیلترها
-                    </span>
-
-
-                    <h2>
-                        انتخاب رنگ
-                    </h2>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    id="clearFilters"
-                >
-                    پاک کردن
-                </button>
-
-            </div>
-
-
-            <!-- PRICE -->
-
-            <div class="filter-section">
-
-                <h3>
-                    قیمت
-                </h3>
-
-
-                <input
-                    type="range"
-                    id="priceRange"
-                    min="0"
-                    max="5000000"
-                    step="50000"
-                    value="5000000"
-                >
-
-
-                <div class="price-values">
-
-                    <span>
-                        تا
-                    </span>
-
-
-                    <strong id="maxPrice">
-                        ۵٬۰۰۰٬۰۰۰ تومان
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- COLOR CODE -->
-
-            <div class="filter-section">
-
-                <h3>
-                    کد رنگی
-                </h3>
-
-
-                <input
-                    type="text"
-                    id="colorCodeFilter"
-                    class="input"
-                    placeholder="#D96B32"
-                >
-
-            </div>
-
-
-            <!-- COLOR NAME -->
-
-            <div class="filter-section">
-
-                <h3>
-                    اسم رنگ
-                </h3>
-
-
-                <input
-                    type="text"
-                    id="colorNameFilter"
-                    class="input"
-                    placeholder="مثلاً کرم"
-                >
-
-            </div>
-
-
-            <!-- USAGE -->
-
-            <div class="filter-section">
-
-                <h3>
-                    کاربرد رنگ
-                </h3>
-
-
-                <div
-                    id="usageFilters"
-                    class="checkbox-list"
-                ></div>
-
-            </div>
-
-
-            <!-- VOLUME -->
-
-            <div class="filter-section">
-
-                <h3>
-                    حجم رنگ
-                </h3>
-
-
-                <div
-                    id="volumeFilters"
-                    class="checkbox-list"
-                ></div>
-
-            </div>
-
-
-            <!-- PACKAGE -->
-
-            <div class="filter-section">
-
-                <h3>
-                    بسته‌بندی
-                </h3>
-
-
-                <div
-                    id="packageFilters"
-                    class="checkbox-list"
-                ></div>
-
-            </div>
-
-
-            <!-- FEATURES -->
-
-            <div class="filter-section">
-
-                <h3>
-                    ویژگی‌های تخصصی
-                </h3>
-
-
-                <div
-                    id="featureFilters"
-                    class="checkbox-list"
-                ></div>
-
-            </div>
-
-        </aside>
-
-
-
-        <!-- =================================
-             PRODUCTS
-        ================================== -->
-
-        <section class="products-section">
-
-            <div
-                id="productsGrid"
-                class="products-grid"
-            ></div>
-
-
-            <div
-                id="emptyState"
-                class="empty-state hidden"
-            >
-
-                <div class="empty-icon">
-                    🎨
-                </div>
-
-
-                <h2>
-                    محصولی پیدا نشد
-                </h2>
-
-
-                <p>
-                    فیلترها یا عبارت جستجو را تغییر بده.
-                </p>
-
-            </div>
-
-        </section>
-
-    </div>
-
 </main>
 
-
-
-<!-- =========================================
-     FOOTER
-========================================= -->
 
 <footer class="footer">
 
     <div class="container footer-grid">
-
 
         <div>
 
             <div class="logo footer-logo">
 
                 <span class="logo-icon">
-                    🎨
+                    ر
                 </span>
 
-                <span>
-                    رنگینه
-                </span>
+                رنگینه
 
             </div>
 
-
             <p>
-                فروشگاه تخصصی انواع رنگ ساختمانی،
-                صنعتی و دکوراتیو.
+                فروشگاه آنلاین انواع رنگ
+                با تمرکز روی انتخاب ساده و دقیق.
             </p>
 
         </div>
@@ -729,18 +379,20 @@
 
         <div>
 
-            <strong>
+            <h3>
                 دسترسی سریع
-            </strong>
-
+            </h3>
 
             <a href="index.html">
                 فروشگاه
             </a>
 
-
             <a href="about.html">
                 درباره ما
+            </a>
+
+            <a href="account.html">
+                حساب کاربری
             </a>
 
         </div>
@@ -748,19 +400,17 @@
 
         <div>
 
-            <strong>
-                حساب
-            </strong>
+            <h3>
+                تماس با ما
+            </h3>
 
+            <p>
+                ۰۲۱-۰۰۰۰۰۰۰۰
+            </p>
 
-            <a href="account.html">
-                حساب کاربری
-            </a>
-
-
-            <a href="cart.html">
-                سبد خرید
-            </a>
+            <p>
+                شنبه تا پنجشنبه ۹ تا ۱۸
+            </p>
 
         </div>
 
@@ -769,36 +419,15 @@
 
     <div class="copyright">
 
-        © ۱۴۰۵ رنگینه — تمامی حقوق محفوظ است.
+        © ۱۴۰۵ رنگینه - تمامی حقوق محفوظ است.
 
     </div>
 
 </footer>
 
 
-
-<!-- =========================================
-     TOAST
-========================================= -->
-
-<div
-    class="toast"
-    id="toast"
-    role="status"
-    aria-live="polite"
-></div>
-
-
-
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
-
 <script src="js/products.js"></script>
-
 <script src="js/app.js"></script>
 
-
 </body>
-
 </html>
