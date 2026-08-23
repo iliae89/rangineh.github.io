@@ -32,9 +32,9 @@
      HEADER
 ========================================= -->
 
-<header class="site-header">
+<header class="header">
 
-    <div class="header-container">
+    <div class="container header-container">
 
 
         <!-- LOGO -->
@@ -75,21 +75,18 @@
 
         <!-- NAVIGATION -->
 
-        <nav class="main-nav">
+        <nav class="navigation">
 
 
             <a
                 href="index.html"
-                class="nav-link active"
+                class="active"
             >
                 فروشگاه
             </a>
 
 
-            <a
-                href="about.html"
-                class="nav-link"
-            >
+            <a href="about.html">
                 درباره ما
             </a>
 
@@ -105,6 +102,7 @@
                     class="account-button"
                     id="accountButton"
                     aria-expanded="false"
+                    aria-controls="accountMenu"
                 >
 
                     <span class="account-icon">
@@ -211,7 +209,7 @@
                         </a>
 
 
-                        <!-- ADMIN INSIDE ACCOUNT -->
+                        <!-- ADMIN -->
 
                         <a
                             href="admin.html"
@@ -248,6 +246,7 @@
                 href="admin.html"
                 id="adminHeaderButton"
                 class="admin-header-button hidden"
+                title="ورود به پنل مدیریت"
             >
 
                 <span class="admin-header-icon">
@@ -295,7 +294,7 @@
 
 <section class="hero">
 
-    <div class="container hero-content">
+    <div class="container hero-container">
 
 
         <div class="hero-text">
@@ -346,7 +345,7 @@
         </div>
 
 
-        <div class="hero-art">
+        <div class="hero-visual">
 
             <div class="paint-can paint-can-one">
 
@@ -366,13 +365,7 @@
             </div>
 
 
-            <div class="paint-can paint-can-three">
-
-                <span>
-                    🎨
-                </span>
-
-            </div>
+            <div class="paint-drop"></div>
 
         </div>
 
@@ -387,14 +380,14 @@
 ========================================= -->
 
 <main
-    class="container shop-container"
+    class="container shop"
     id="products"
 >
 
 
     <!-- TOP BAR -->
 
-    <section class="shop-toolbar">
+    <section class="products-heading">
 
         <div>
 
@@ -457,6 +450,29 @@
 
 
 
+    <!-- SEARCH / FILTER BAR -->
+
+    <div class="search-bar">
+
+        <div class="search-box">
+
+            <span>
+                🔎
+            </span>
+
+            <input
+                type="search"
+                id="shopSearchInput"
+                placeholder="جستجوی محصول..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </div>
+
+
+
     <!-- SHOP LAYOUT -->
 
     <div class="shop-layout">
@@ -477,9 +493,9 @@
                     </span>
 
 
-                    <h3>
+                    <h2>
                         انتخاب رنگ
-                    </h3>
+                    </h2>
 
                 </div>
 
@@ -487,7 +503,6 @@
                 <button
                     type="button"
                     id="clearFilters"
-                    class="clear-filters"
                 >
                     پاک کردن
                 </button>
@@ -497,11 +512,11 @@
 
             <!-- PRICE -->
 
-            <div class="filter-group">
+            <div class="filter-section">
 
-                <h4>
+                <h3>
                     قیمت
-                </h4>
+                </h3>
 
 
                 <input
@@ -514,7 +529,7 @@
                 >
 
 
-                <div class="price-range-info">
+                <div class="price-values">
 
                     <span>
                         تا
@@ -532,11 +547,11 @@
 
             <!-- COLOR CODE -->
 
-            <div class="filter-group">
+            <div class="filter-section">
 
-                <h4>
+                <h3>
                     کد رنگی
-                </h4>
+                </h3>
 
 
                 <input
@@ -551,11 +566,11 @@
 
             <!-- COLOR NAME -->
 
-            <div class="filter-group">
+            <div class="filter-section">
 
-                <h4>
+                <h3>
                     اسم رنگ
-                </h4>
+                </h3>
 
 
                 <input
@@ -570,11 +585,11 @@
 
             <!-- USAGE -->
 
-            <div class="filter-group">
+            <div class="filter-section">
 
-                <h4>
+                <h3>
                     کاربرد رنگ
-                </h4>
+                </h3>
 
 
                 <div
@@ -587,11 +602,11 @@
 
             <!-- VOLUME -->
 
-            <div class="filter-group">
+            <div class="filter-section">
 
-                <h4>
+                <h3>
                     حجم رنگ
-                </h4>
+                </h3>
 
 
                 <div
@@ -604,11 +619,11 @@
 
             <!-- PACKAGE -->
 
-            <div class="filter-group">
+            <div class="filter-section">
 
-                <h4>
+                <h3>
                     بسته‌بندی
-                </h4>
+                </h3>
 
 
                 <div
@@ -621,11 +636,11 @@
 
             <!-- FEATURES -->
 
-            <div class="filter-group">
+            <div class="filter-section">
 
-                <h4>
+                <h3>
                     ویژگی‌های تخصصی
-                </h4>
+                </h3>
 
 
                 <div
@@ -684,26 +699,40 @@
      FOOTER
 ========================================= -->
 
-<footer class="site-footer">
+<footer class="footer">
 
-    <div class="container footer-content">
+    <div class="container footer-grid">
 
 
         <div>
 
-            <div class="footer-logo">
-                🎨 رنگینه
+            <div class="logo footer-logo">
+
+                <span class="logo-icon">
+                    🎨
+                </span>
+
+                <span>
+                    رنگینه
+                </span>
+
             </div>
 
 
             <p>
-                فروشگاه تخصصی انواع رنگ
+                فروشگاه تخصصی انواع رنگ ساختمانی،
+                صنعتی و دکوراتیو.
             </p>
 
         </div>
 
 
-        <div class="footer-links">
+        <div>
+
+            <strong>
+                دسترسی سریع
+            </strong>
+
 
             <a href="index.html">
                 فروشگاه
@@ -713,6 +742,15 @@
             <a href="about.html">
                 درباره ما
             </a>
+
+        </div>
+
+
+        <div>
+
+            <strong>
+                حساب
+            </strong>
 
 
             <a href="account.html">
@@ -728,15 +766,26 @@
 
     </div>
 
+
+    <div class="copyright">
+
+        © ۱۴۰۵ رنگینه — تمامی حقوق محفوظ است.
+
+    </div>
+
 </footer>
 
 
 
-<!-- TOAST -->
+<!-- =========================================
+     TOAST
+========================================= -->
 
 <div
     class="toast"
+    id="toast"
     role="status"
+    aria-live="polite"
 ></div>
 
 
