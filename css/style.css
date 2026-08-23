@@ -4,14 +4,20 @@
 ========================================== */
 
 
-/* ---------- ACCOUNT WRAPPER ---------- */
+/* ==========================================
+   ACCOUNT WRAPPER
+========================================== */
 
 .account-wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 
-/* ---------- ACCOUNT BUTTON ---------- */
+/* ==========================================
+   ACCOUNT BUTTON
+========================================== */
 
 .account-button {
     display: flex;
@@ -19,8 +25,8 @@
     justify-content: center;
     gap: 7px;
 
-    height: 42px;
-    padding: 0 13px;
+    height: 40px;
+    padding: 0 12px;
 
     border: 1px solid #dfc9b9;
     border-radius: 12px;
@@ -34,11 +40,14 @@
 
     cursor: pointer;
 
-    transition: all 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .account-button:hover {
-    background: #f7e9df;
+    background-color: #f7e9df;
     border-color: #d5b3a0;
 }
 
@@ -47,11 +56,19 @@
 }
 
 .account-icon {
-    font-size: 17px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+    line-height: 1;
 }
 
 .account-arrow {
-    font-size: 14px;
+    display: inline-flex;
+
+    font-size: 13px;
+    line-height: 1;
 
     transition: transform 0.2s ease;
 }
@@ -61,15 +78,18 @@
 }
 
 
-/* ---------- ACCOUNT DROPDOWN ---------- */
+/* ==========================================
+   ACCOUNT DROPDOWN
+========================================== */
 
 .account-menu {
     position: absolute;
 
-    top: calc(100% + 10px);
-    left: 0;
+    top: calc(100% + 9px);
+    right: 0;
+    left: auto;
 
-    width: 280px;
+    width: 270px;
 
     padding: 8px;
 
@@ -78,10 +98,10 @@
     background: #fffaf6;
 
     border: 1px solid #dfc9b9;
-    border-radius: 17px;
+    border-radius: 16px;
 
     box-shadow:
-        0 15px 40px rgba(75, 45, 30, 0.15);
+        0 12px 35px rgba(75, 45, 30, 0.14);
 
     z-index: 9999;
 
@@ -89,89 +109,99 @@
     visibility: hidden;
     pointer-events: none;
 
-    transform: translateY(-8px);
+    transform: translateY(-7px);
 
     transition:
-        opacity 0.2s ease,
-        transform 0.2s ease,
-        visibility 0.2s ease;
+        opacity 0.18s ease,
+        transform 0.18s ease,
+        visibility 0.18s ease;
 }
 
 .account-menu.show {
     opacity: 1;
-
     visibility: visible;
-
     pointer-events: auto;
 
     transform: translateY(0);
 }
 
 
-/* ---------- MENU SECTION ---------- */
+/* ==========================================
+   ACCOUNT MENU SECTION
+========================================== */
 
 .account-menu-section {
-    padding: 12px;
+    padding: 11px;
 }
 
 
-/* ---------- MENU TITLE ---------- */
+/* ==========================================
+   MENU TITLE
+========================================== */
 
 .account-menu-title {
+    margin: 0;
+
     color: #5a382b;
 
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
 }
 
 
-/* ---------- MENU DESCRIPTION ---------- */
+/* ==========================================
+   MENU DESCRIPTION
+========================================== */
 
 .account-menu-description {
-    margin: 6px 0 14px;
+    margin: 5px 0 13px;
 
     color: #8a7165;
 
-    font-size: 12px;
-
+    font-size: 11px;
     line-height: 1.8;
 }
 
 
-/* ---------- ACCOUNT USER ---------- */
+/* ==========================================
+   LOGGED USER
+========================================== */
 
 .account-user {
     display: flex;
-
     align-items: center;
 
     gap: 10px;
+
+    padding: 3px;
 }
 
 .account-avatar {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     flex-shrink: 0;
 
-    border-radius: 13px;
+    border-radius: 12px;
 
     background: #ead5c6;
 
-    font-size: 20px;
+    font-size: 19px;
 }
 
 .account-user strong {
     display: block;
 
+    margin: 0;
+
     color: #5a382b;
 
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 800;
 }
 
 .account-user span {
@@ -185,31 +215,33 @@
 }
 
 
-/* ---------- LOGIN / REGISTER ---------- */
+/* ==========================================
+   LOGIN / REGISTER BUTTONS
+========================================== */
 
 .account-menu-button {
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     width: 100%;
-
-    min-height: 40px;
+    min-height: 39px;
 
     margin-top: 7px;
 
     box-sizing: border-box;
 
-    border-radius: 11px;
+    border-radius: 10px;
 
     text-decoration: none;
 
-    font-size: 12px;
-
+    font-family: inherit;
+    font-size: 11px;
     font-weight: 800;
 
-    transition: all 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 
@@ -217,13 +249,11 @@
 
 .account-menu-button.primary {
     background: #b85b3b;
-
     color: #ffffff;
 }
 
 .account-menu-button.primary:hover {
     background: #a94f32;
-
     transform: translateY(-1px);
 }
 
@@ -232,7 +262,6 @@
 
 .account-menu-button.secondary {
     background: #f3e4d9;
-
     color: #6a4030;
 }
 
@@ -241,42 +270,39 @@
 }
 
 
-/* ---------- MENU ITEMS ---------- */
+/* ==========================================
+   ACCOUNT MENU ITEMS
+========================================== */
 
 .account-menu-item {
     display: flex;
-
     align-items: center;
 
     width: 100%;
+    min-height: 40px;
 
-    min-height: 42px;
-
-    padding: 0 12px;
+    padding: 0 11px;
 
     box-sizing: border-box;
 
-    border: none;
-
-    border-radius: 11px;
+    border: 0;
+    border-radius: 10px;
 
     background: transparent;
-
     color: #5a382b;
 
     font-family: inherit;
-
-    font-size: 12px;
-
+    font-size: 11px;
     font-weight: 700;
 
     text-align: right;
-
     text-decoration: none;
 
     cursor: pointer;
 
-    transition: background 0.2s ease;
+    transition:
+        background-color 0.18s ease,
+        color 0.18s ease;
 }
 
 .account-menu-item:hover {
@@ -284,13 +310,14 @@
 }
 
 
-/* ---------- ADMIN INSIDE ACCOUNT ---------- */
+/* ==========================================
+   ADMIN ITEM INSIDE ACCOUNT
+========================================== */
 
 .admin-menu-item {
     margin-top: 3px;
 
     background: #f1ded2 !important;
-
     color: #91472f !important;
 }
 
@@ -299,7 +326,9 @@
 }
 
 
-/* ---------- LOGOUT ---------- */
+/* ==========================================
+   LOGOUT
+========================================== */
 
 .logout-item {
     color: #a94c3a;
@@ -310,12 +339,14 @@
 }
 
 
-/* ---------- DIVIDER ---------- */
+/* ==========================================
+   DIVIDER
+========================================== */
 
 .account-menu-divider {
     height: 1px;
 
-    margin: 8px 4px;
+    margin: 7px 4px;
 
     background: #ead9cd;
 }
@@ -327,42 +358,41 @@
 
 .admin-header-button {
     display: flex;
-
     align-items: center;
     justify-content: center;
 
-    gap: 7px;
+    gap: 6px;
 
-    height: 42px;
+    height: 40px;
 
-    padding: 0 13px;
+    padding: 0 11px;
 
     box-sizing: border-box;
 
     border: 1px solid #dfc1af;
-
     border-radius: 12px;
 
     background: #f2dfd2;
-
     color: #91472f;
 
     font-family: inherit;
-
-    font-size: 12px;
-
+    font-size: 11px;
     font-weight: 800;
 
     text-decoration: none;
 
     white-space: nowrap;
 
-    transition: all 0.2s ease;
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .admin-header-button:hover {
     background: #e8cbbb;
-
     border-color: #d2ad98;
 
     transform: translateY(-1px);
@@ -373,7 +403,13 @@
 }
 
 .admin-header-icon {
-    font-size: 16px;
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 15px;
+    line-height: 1;
 }
 
 
@@ -387,7 +423,7 @@
 
 
 /* ==========================================
-   MOBILE
+   RESPONSIVE
 ========================================== */
 
 @media (max-width: 900px) {
@@ -397,8 +433,7 @@
     }
 
     .account-button {
-        width: 42px;
-
+        width: 40px;
         padding: 0;
     }
 
@@ -407,8 +442,7 @@
     }
 
     .admin-header-button {
-        width: 42px;
-
+        width: 40px;
         padding: 0;
     }
 
@@ -423,13 +457,15 @@
     .account-menu {
         position: fixed;
 
-        top: 70px;
+        top: 68px;
 
-        left: 15px;
-        right: 15px;
+        right: 12px;
+        left: 12px;
 
         width: auto;
 
         max-width: none;
+
+        transform-origin: top center;
     }
 }
