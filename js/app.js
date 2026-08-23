@@ -1,6 +1,43 @@
 /* ==========================================
-   RANGINEH MAIN APP
+   RANGINEH
+   MAIN APPLICATION
 ========================================== */
+
+
+/* ==========================================
+   GLOBAL HELPERS
+========================================== */
+
+function getStoredUser() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("rangineh_user")
+        );
+
+    } catch {
+
+        return null;
+
+    }
+
+}
+
+
+function isAdmin() {
+
+    const user = getStoredUser();
+
+    return !!(
+        user &&
+        (
+            user.role === "admin" ||
+            user.isAdmin === true
+        )
+    );
+
+}
 
 
 /* ==========================================
@@ -11,9 +48,16 @@ function getCart() {
 
     try {
 
-        return JSON.parse(
-            localStorage.getItem("rangineh_cart")
-        ) || [];
+        const cart =
+            JSON.parse(
+                localStorage.getItem(
+                    "rangineh_cart"
+                )
+            );
+
+        return Array.isArray(cart)
+            ? cart
+            : [];
 
     } catch {
 
@@ -25,6 +69,12 @@ function getCart() {
 
 
 function saveCart(cart) {
+
+    if (!Array.isArray(cart)) {
+
+        return;
+
+    }
 
     localStorage.setItem(
         "rangineh_cart",
@@ -42,20 +92,29 @@ function saveCart(cart) {
 
 function updateCartCount() {
 
-    const cart = getCart();
+    const cart =
+        getCart();
 
     const count =
         cart.reduce(
-            (total, item) =>
-                total + item.quantity,
+            (total, item) => {
+
+                const quantity =
+                    Number(item.quantity) || 0;
+
+                return total + quantity;
+
+            },
             0
         );
+
 
     document
         .querySelectorAll(".cart-count")
         .forEach(element => {
 
-            element.textContent = count;
+            element.textContent =
+                count.toLocaleString("fa-IR");
 
         });
 
@@ -66,15 +125,53 @@ function updateCartCount() {
    ADD TO CART
 ========================================== */
 
-function addToCart(productId, quantity = 1) {
+function addToCart(
+    productId,
+    quantity = 1
+) {
 
     const product =
         getProductById(productId);
 
-    if (!product) return;
+    if (!product) {
+
+        showToast(
+            "محصول پیدا نشد."
+        );
+
+        return false;
+
+    }
 
 
-    const cart = getCart();
+    const requestedQuantity =
+        Math.max(
+            1,
+            Number(quantity) || 1
+        );
+
+
+    /* --------------------------------------
+       STOCK CHECK
+    -------------------------------------- */
+
+    if (
+        product.stock !== undefined &&
+        product.stock <= 0
+    ) {
+
+        showToast(
+            "این محصول در حال حاضر موجود نیست."
+        );
+
+        return false;
+
+    }
+
+
+    const cart =
+        getCart();
+
 
     const existing =
         cart.find(
@@ -86,7 +183,33 @@ function addToCart(productId, quantity = 1) {
 
     if (existing) {
 
-        existing.quantity += quantity;
+        const newQuantity =
+            existing.quantity +
+            requestedQuantity;
+
+
+        if (
+            product.stock !== undefined &&
+            newQuantity > product.stock
+        ) {
+
+            existing.quantity =
+                product.stock;
+
+            showToast(
+                "بیشترین تعداد موجود به سبد اضافه شد."
+            );
+
+        } else {
+
+            existing.quantity =
+                newQuantity;
+
+            showToast(
+                "تعداد محصول افزایش یافت ✓"
+            );
+
+        }
 
     } else {
 
@@ -94,18 +217,137 @@ function addToCart(productId, quantity = 1) {
 
             id: product.id,
 
-            quantity: quantity
+            quantity:
+                Math.min(
+                    requestedQuantity,
+                    product.stock ??
+                    requestedQuantity
+                )
 
         });
+
+
+        showToast(
+            "محصول به سبد خرید اضافه شد ✓"
+        );
 
     }
 
 
     saveCart(cart);
 
-    showToast(
-        "محصول به سبد خرید اضافه شد ✓"
+    return true;
+
+}
+
+
+/* ==========================================
+   REMOVE FROM CART
+========================================== */
+
+function removeFromCart(productId) {
+
+    const cart =
+        getCart();
+
+
+    const newCart =
+        cart.filter(
+            item =>
+                Number(item.id) !==
+                Number(productId)
+        );
+
+
+    saveCart(newCart);
+
+}
+
+
+/* ==========================================
+   UPDATE CART ITEM
+========================================== */
+
+function updateCartItem(
+    productId,
+    quantity
+) {
+
+    const cart =
+        getCart();
+
+
+    const item =
+        cart.find(
+            cartItem =>
+                Number(cartItem.id) ===
+                Number(productId)
+        );
+
+
+    if (!item) {
+
+        return false;
+
+    }
+
+
+    const product =
+        getProductById(productId);
+
+
+    let newQuantity =
+        Math.max(
+            0,
+            Number(quantity) || 0
+        );
+
+
+    if (
+        product &&
+        product.stock !== undefined
+    ) {
+
+        newQuantity =
+            Math.min(
+                newQuantity,
+                product.stock
+            );
+
+    }
+
+
+    if (newQuantity <= 0) {
+
+        removeFromCart(productId);
+
+        return true;
+
+    }
+
+
+    item.quantity =
+        newQuantity;
+
+
+    saveCart(cart);
+
+    return true;
+
+}
+
+
+/* ==========================================
+   CLEAR CART
+========================================== */
+
+function clearCart() {
+
+    localStorage.removeItem(
+        "rangineh_cart"
     );
+
+    updateCartCount();
 
 }
 
@@ -117,24 +359,40 @@ function addToCart(productId, quantity = 1) {
 function showToast(message) {
 
     let toast =
-        document.querySelector(".toast");
+        document.querySelector(
+            ".toast"
+        );
 
 
     if (!toast) {
 
         toast =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        toast.className = "toast";
+        toast.className =
+            "toast";
 
-        document.body.appendChild(toast);
+        toast.setAttribute(
+            "role",
+            "status"
+        );
+
+        document.body.appendChild(
+            toast
+        );
 
     }
 
 
-    toast.textContent = message;
+    toast.textContent =
+        message;
 
-    toast.classList.add("show");
+
+    toast.classList.add(
+        "show"
+    );
 
 
     clearTimeout(
@@ -143,11 +401,16 @@ function showToast(message) {
 
 
     window.ranginehToast =
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            toast.classList.remove("show");
+                toast.classList.remove(
+                    "show"
+                );
 
-        }, 2200);
+            },
+            2200
+        );
 
 }
 
@@ -158,31 +421,58 @@ function showToast(message) {
 
 function formatPrice(price) {
 
-    return Number(price).toLocaleString(
-        "fa-IR"
-    ) + " تومان";
+    const number =
+        Number(price) || 0;
+
+
+    return (
+        number.toLocaleString(
+            "fa-IR"
+        ) +
+        " تومان"
+    );
 
 }
 
 
 /* ==========================================
-   PRODUCT CARD
+   CREATE PRODUCT CARD
 ========================================== */
 
 function createProductCard(product) {
 
+    if (!product) {
+
+        return "";
+
+    }
+
+
+    const stock =
+        Number(product.stock);
+
+
+    const outOfStock =
+        !Number.isNaN(stock) &&
+        stock <= 0;
+
+
     return `
 
-        <article class="product-card">
+        <article
+            class="product-card"
+            data-product-id="${product.id}"
+        >
 
             <a
-                href="product.html?id=${product.id}"
+                href="product.html?id=${encodeURIComponent(product.id)}"
                 class="product-image"
-                style="--paint:${product.color}"
+                style="--paint:${product.color || "#b85c38"}"
+                aria-label="${product.name || "محصول"}"
             >
 
                 <span>
-                    ${product.colorName}
+                    ${product.colorName || ""}
                 </span>
 
             </a>
@@ -191,28 +481,34 @@ function createProductCard(product) {
             <div class="product-body">
 
                 <span class="product-brand">
-                    ${product.brand}
+                    ${product.brand || "رنگینه"}
                 </span>
 
 
                 <h3>
-                    ${product.name}
+                    ${product.name || "محصول بدون نام"}
                 </h3>
 
 
                 <div class="product-meta">
 
-                    <span>
-                        ${product.usage}
-                    </span>
+                    ${
+                        product.usage
+                            ? `<span>${product.usage}</span>`
+                            : ""
+                    }
 
-                    <span>
-                        ${product.volume}
-                    </span>
+                    ${
+                        product.volume
+                            ? `<span>${product.volume}</span>`
+                            : ""
+                    }
 
-                    <span>
-                        ${product.package}
-                    </span>
+                    ${
+                        product.package
+                            ? `<span>${product.package}</span>`
+                            : ""
+                    }
 
                 </div>
 
@@ -224,13 +520,35 @@ function createProductCard(product) {
                     </strong>
 
 
-                    <button
-                        class="add-button"
-                        data-add-product="${product.id}"
-                        aria-label="افزودن به سبد"
-                    >
-                        +
-                    </button>
+                    ${
+                        outOfStock
+
+                        ? `
+
+                            <button
+                                class="add-button disabled"
+                                type="button"
+                                disabled
+                                aria-label="ناموجود"
+                            >
+                                ×
+                            </button>
+
+                        `
+
+                        : `
+
+                            <button
+                                class="add-button"
+                                type="button"
+                                data-add-product="${product.id}"
+                                aria-label="افزودن ${product.name} به سبد"
+                            >
+                                +
+                            </button>
+
+                        `
+                    }
 
                 </div>
 
@@ -247,13 +565,19 @@ function createProductCard(product) {
    FILTER HELPERS
 ========================================== */
 
-function uniqueValues(products, key) {
+function uniqueValues(
+    products,
+    key
+) {
 
     return [
         ...new Set(
-            products.map(
-                product => product[key]
-            )
+            products
+                .map(
+                    product =>
+                        product[key]
+                )
+                .filter(Boolean)
         )
     ];
 
@@ -267,27 +591,62 @@ function createCheckboxFilters(
 ) {
 
     const container =
-        document.getElementById(containerId);
+        document.getElementById(
+            containerId
+        );
 
-    if (!container) return;
+
+    if (!container) {
+
+        return;
+
+    }
 
 
     container.innerHTML =
-        values.map(value => `
+        values
+            .map(
+                value => `
 
-            <label>
+                    <label>
 
-                <input
-                    type="checkbox"
-                    name="${name}"
-                    value="${value}"
-                >
+                        <input
+                            type="checkbox"
+                            name="${name}"
+                            value="${String(value)
+                                .replace(/"/g, "&quot;")}"
+                        >
 
-                ${value}
+                        <span>
+                            ${value}
+                        </span>
 
-            </label>
+                    </label>
 
-        `).join("");
+                `
+            )
+            .join("");
+
+}
+
+
+/* ==========================================
+   GET SELECTED FILTERS
+========================================== */
+
+function getSelectedFilters(
+    name
+) {
+
+    return [
+        ...document.querySelectorAll(
+            `input[name="${name}"]:checked`
+        )
+    ]
+        .map(
+            input =>
+                input.value
+        );
 
 }
 
@@ -303,30 +662,41 @@ function initializeHome() {
             "productsGrid"
         );
 
-    if (!grid) return;
+
+    if (!grid) {
+
+        return;
+
+    }
 
 
-    let products = getProducts();
+    let products =
+        getProducts();
+
 
     const searchInput =
         document.getElementById(
             "searchInput"
         );
 
+
     const sortSelect =
         document.getElementById(
             "sortSelect"
         );
+
 
     const priceRange =
         document.getElementById(
             "priceRange"
         );
 
+
     const colorCodeFilter =
         document.getElementById(
             "colorCodeFilter"
         );
+
 
     const colorNameFilter =
         document.getElementById(
@@ -334,213 +704,309 @@ function initializeHome() {
         );
 
 
+    /* --------------------------------------
+       CREATE FILTERS
+    -------------------------------------- */
+
     createCheckboxFilters(
         "usageFilters",
-        uniqueValues(products, "usage"),
+        uniqueValues(
+            products,
+            "usage"
+        ),
         "usage"
     );
 
 
     createCheckboxFilters(
         "volumeFilters",
-        uniqueValues(products, "volume"),
+        uniqueValues(
+            products,
+            "volume"
+        ),
         "volume"
     );
 
 
     createCheckboxFilters(
         "packageFilters",
-        uniqueValues(products, "package"),
+        uniqueValues(
+            products,
+            "package"
+        ),
         "package"
     );
 
 
     createCheckboxFilters(
         "featureFilters",
-        uniqueValues(products, "feature"),
+        uniqueValues(
+            products,
+            "feature"
+        ),
         "feature"
     );
 
 
-    function getSelected(name) {
-
-        return [
-            ...document.querySelectorAll(
-                `input[name="${name}"]:checked`
-            )
-        ].map(input => input.value);
-
-    }
-
+    /* --------------------------------------
+       RENDER
+    -------------------------------------- */
 
     function render() {
 
-        let result = [...products];
+        /*
+         * دوباره محصولات را از storage می‌خوانیم
+         * تا اگر پنل مدیریت محصولی اضافه/حذف کرد،
+         * صفحه اطلاعات جدید را داشته باشد.
+         */
+
+        products =
+            getProducts();
+
+
+        let result =
+            [...products];
 
 
         const search =
-            searchInput?.value
+            searchInput
+                ?.value
                 .trim()
                 .toLowerCase() || "";
 
 
         const colorCode =
-            colorCodeFilter?.value
+            colorCodeFilter
+                ?.value
                 .trim()
                 .toLowerCase() || "";
 
 
         const colorName =
-            colorNameFilter?.value
+            colorNameFilter
+                ?.value
                 .trim()
                 .toLowerCase() || "";
 
 
         const maxPrice =
-            Number(priceRange?.value || 20000000);
+            Number(
+                priceRange?.value ||
+                5000000
+            );
 
 
         const usages =
-            getSelected("usage");
+            getSelectedFilters(
+                "usage"
+            );
 
 
         const volumes =
-            getSelected("volume");
+            getSelectedFilters(
+                "volume"
+            );
 
 
         const packages =
-            getSelected("package");
+            getSelectedFilters(
+                "package"
+            );
 
 
         const features =
-            getSelected("feature");
+            getSelectedFilters(
+                "feature"
+            );
 
+
+        /* ----------------------------------
+           FILTER
+        ---------------------------------- */
 
         result =
-            result.filter(product => {
+            result.filter(
+                product => {
 
-                const searchMatch =
-                    !search ||
-                    product.name
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    product.brand
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    product.colorName
-                        .toLowerCase()
-                        .includes(search) ||
-
-                    product.color
-                        .toLowerCase()
-                        .includes(search);
+                    const name =
+                        String(
+                            product.name || ""
+                        )
+                            .toLowerCase();
 
 
-                const codeMatch =
-                    !colorCode ||
-                    product.color
-                        .toLowerCase()
-                        .includes(colorCode);
+                    const brand =
+                        String(
+                            product.brand || ""
+                        )
+                            .toLowerCase();
 
 
-                const nameMatch =
-                    !colorName ||
-                    product.colorName
-                        .toLowerCase()
-                        .includes(colorName);
+                    const colorNameValue =
+                        String(
+                            product.colorName || ""
+                        )
+                            .toLowerCase();
 
 
-                const priceMatch =
-                    product.price <= maxPrice;
+                    const color =
+                        String(
+                            product.color || ""
+                        )
+                            .toLowerCase();
 
 
-                const usageMatch =
-                    usages.length === 0 ||
-                    usages.includes(product.usage);
+                    const searchMatch =
+                        !search ||
+                        name.includes(search) ||
+                        brand.includes(search) ||
+                        colorNameValue.includes(search) ||
+                        color.includes(search);
 
 
-                const volumeMatch =
-                    volumes.length === 0 ||
-                    volumes.includes(product.volume);
+                    const codeMatch =
+                        !colorCode ||
+                        color.includes(
+                            colorCode
+                        );
 
 
-                const packageMatch =
-                    packages.length === 0 ||
-                    packages.includes(product.package);
+                    const nameMatch =
+                        !colorName ||
+                        colorNameValue.includes(
+                            colorName
+                        );
 
 
-                const featureMatch =
-                    features.length === 0 ||
-                    features.includes(product.feature);
+                    const priceMatch =
+                        Number(
+                            product.price
+                        ) <= maxPrice;
 
 
-                return (
-                    searchMatch &&
-                    codeMatch &&
-                    nameMatch &&
-                    priceMatch &&
-                    usageMatch &&
-                    volumeMatch &&
-                    packageMatch &&
-                    featureMatch
-                );
-
-            });
+                    const usageMatch =
+                        usages.length === 0 ||
+                        usages.includes(
+                            product.usage
+                        );
 
 
-        /* SORT */
+                    const volumeMatch =
+                        volumes.length === 0 ||
+                        volumes.includes(
+                            product.volume
+                        );
+
+
+                    const packageMatch =
+                        packages.length === 0 ||
+                        packages.includes(
+                            product.package
+                        );
+
+
+                    const featureMatch =
+                        features.length === 0 ||
+                        features.includes(
+                            product.feature
+                        );
+
+
+                    return (
+
+                        searchMatch &&
+
+                        codeMatch &&
+
+                        nameMatch &&
+
+                        priceMatch &&
+
+                        usageMatch &&
+
+                        volumeMatch &&
+
+                        packageMatch &&
+
+                        featureMatch
+
+                    );
+
+                }
+            );
+
+
+        /* ----------------------------------
+           SORT
+        ---------------------------------- */
 
         const sort =
-            sortSelect?.value;
+            sortSelect?.value ||
+            "newest";
 
 
         if (sort === "cheap") {
 
             result.sort(
                 (a, b) =>
-                    a.price - b.price
+                    Number(a.price) -
+                    Number(b.price)
             );
 
         }
 
 
-        if (sort === "expensive") {
+        else if (
+            sort === "expensive"
+        ) {
 
             result.sort(
                 (a, b) =>
-                    b.price - a.price
+                    Number(b.price) -
+                    Number(a.price)
             );
 
         }
 
 
-        if (sort === "popular") {
+        else if (
+            sort === "popular"
+        ) {
 
             result.sort(
                 (a, b) =>
-                    b.sold - a.sold
+                    Number(b.sold || 0) -
+                    Number(a.sold || 0)
             );
 
         }
 
 
-        if (sort === "newest") {
+        else {
 
             result.sort(
                 (a, b) =>
-                    new Date(b.createdAt) -
-                    new Date(a.createdAt)
+                    new Date(
+                        b.createdAt
+                    ) -
+                    new Date(
+                        a.createdAt
+                    )
             );
 
         }
 
+
+        /* ----------------------------------
+           DISPLAY
+        ---------------------------------- */
 
         grid.innerHTML =
-            result.map(
-                createProductCard
-            ).join("");
+            result
+                .map(
+                    createProductCard
+                )
+                .join("");
 
 
         const count =
@@ -567,7 +1033,7 @@ function initializeHome() {
 
             empty.classList.toggle(
                 "hidden",
-                result.length !== 0
+                result.length > 0
             );
 
         }
@@ -575,23 +1041,9 @@ function initializeHome() {
     }
 
 
-    document.addEventListener(
-        "change",
-        event => {
-
-            if (
-                event.target.matches(
-                    "input[type='checkbox']"
-                )
-            ) {
-
-                render();
-
-            }
-
-        }
-    );
-
+    /* --------------------------------------
+       EVENTS
+    -------------------------------------- */
 
     searchInput?.addEventListener(
         "input",
@@ -620,6 +1072,7 @@ function initializeHome() {
                     "maxPrice"
                 );
 
+
             if (maxPrice) {
 
                 maxPrice.textContent =
@@ -628,6 +1081,7 @@ function initializeHome() {
                     );
 
             }
+
 
             render();
 
@@ -641,8 +1095,28 @@ function initializeHome() {
     );
 
 
+    document.addEventListener(
+        "change",
+        event => {
+
+            if (
+                event.target.matches(
+                    ".filters input[type='checkbox']"
+                )
+            ) {
+
+                render();
+
+            }
+
+        }
+    );
+
+
     document
-        .getElementById("clearFilters")
+        .getElementById(
+            "clearFilters"
+        )
         ?.addEventListener(
             "click",
             () => {
@@ -651,29 +1125,51 @@ function initializeHome() {
                     .querySelectorAll(
                         ".filters input"
                     )
-                    .forEach(input => {
+                    .forEach(
+                        input => {
 
-                        if (
-                            input.type ===
-                            "checkbox"
-                        ) {
+                            if (
+                                input.type ===
+                                "checkbox"
+                            ) {
 
-                            input.checked =
-                                false;
+                                input.checked =
+                                    false;
 
-                        } else {
+                            }
 
-                            input.value = "";
+                            else {
+
+                                input.value =
+                                    "";
+
+                            }
 
                         }
-
-                    });
+                    );
 
 
                 if (priceRange) {
 
                     priceRange.value =
                         priceRange.max;
+
+                }
+
+
+                const maxPrice =
+                    document.getElementById(
+                        "maxPrice"
+                    );
+
+
+                if (maxPrice) {
+
+                    maxPrice.textContent =
+                        formatPrice(
+                            priceRange?.max ||
+                            5000000
+                        );
 
                 }
 
@@ -690,7 +1186,7 @@ function initializeHome() {
 
 
 /* ==========================================
-   ADD BUTTON DELEGATION
+   ADD TO CART EVENT DELEGATION
 ========================================== */
 
 document.addEventListener(
@@ -703,7 +1199,14 @@ document.addEventListener(
             );
 
 
-        if (!button) return;
+        if (!button) {
+
+            return;
+
+        }
+
+
+        event.preventDefault();
 
 
         const id =
@@ -719,25 +1222,330 @@ document.addEventListener(
 
 
 /* ==========================================
-   ACCOUNT
+   ACCOUNT DROPDOWN
 ========================================== */
 
-function initializeAccount() {
+function initializeAccountMenu() {
+
+    const button =
+        document.getElementById(
+            "accountButton"
+        );
+
+
+    const menu =
+        document.getElementById(
+            "accountMenu"
+        );
+
+
+    if (!button || !menu) {
+
+        return;
+
+    }
+
+
+    const guestMenu =
+        document.getElementById(
+            "guestAccountMenu"
+        );
+
+
+    const userMenu =
+        document.getElementById(
+            "userAccountMenu"
+        );
+
+
+    const adminPanelLink =
+        document.getElementById(
+            "adminPanelLink"
+        );
+
+
+    const adminHeaderButton =
+        document.getElementById(
+            "adminHeaderButton"
+        );
+
+
+    const accountUserName =
+        document.getElementById(
+            "accountUserName"
+        );
+
+
+    const accountUserEmail =
+        document.getElementById(
+            "accountUserEmail"
+        );
+
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    /* --------------------------------------
+       USER STATE
+    -------------------------------------- */
+
+    function updateAccountUI() {
+
+        const user =
+            getStoredUser();
+
+
+        if (!user) {
+
+            guestMenu
+                ?.classList
+                .remove("hidden");
+
+
+            userMenu
+                ?.classList
+                .add("hidden");
+
+
+            adminPanelLink
+                ?.classList
+                .add("hidden");
+
+
+            adminHeaderButton
+                ?.classList
+                .add("hidden");
+
+
+            return;
+
+        }
+
+
+        guestMenu
+            ?.classList
+            .add("hidden");
+
+
+        userMenu
+            ?.classList
+            .remove("hidden");
+
+
+        if (accountUserName) {
+
+            accountUserName.textContent =
+                user.name ||
+                "کاربر";
+
+        }
+
+
+        if (accountUserEmail) {
+
+            accountUserEmail.textContent =
+                user.email ||
+                "";
+
+        }
+
+
+        if (isAdmin()) {
+
+            adminPanelLink
+                ?.classList
+                .remove("hidden");
+
+
+            adminHeaderButton
+                ?.classList
+                .remove("hidden");
+
+        }
+
+        else {
+
+            adminPanelLink
+                ?.classList
+                .add("hidden");
+
+
+            adminHeaderButton
+                ?.classList
+                .add("hidden");
+
+        }
+
+    }
+
+
+    /* --------------------------------------
+       OPEN / CLOSE
+    -------------------------------------- */
+
+    function openMenu() {
+
+        menu.classList.add(
+            "show"
+        );
+
+        button.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+    }
+
+
+    function closeMenu() {
+
+        menu.classList.remove(
+            "show"
+        );
+
+        button.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+    }
+
+
+    function toggleMenu() {
+
+        const isOpen =
+            menu.classList.contains(
+                "show"
+            );
+
+
+        if (isOpen) {
+
+            closeMenu();
+
+        }
+
+        else {
+
+            openMenu();
+
+        }
+
+    }
+
+
+    button.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+            toggleMenu();
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if (
+                !menu.contains(event.target) &&
+                !button.contains(event.target)
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
+
+    /* --------------------------------------
+       LOGOUT
+    -------------------------------------- */
+
+    logoutButton
+        ?.addEventListener(
+            "click",
+            () => {
+
+                localStorage.removeItem(
+                    "rangineh_user"
+                );
+
+
+                closeMenu();
+
+
+                updateAccountUI();
+
+
+                showToast(
+                    "با موفقیت از حساب خارج شدی."
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        location.reload();
+
+                    },
+                    500
+                );
+
+            }
+        );
+
+
+    updateAccountUI();
+
+}
+
+
+/* ==========================================
+   ACCOUNT PAGE
+========================================== */
+
+function initializeAccountPage() {
 
     const container =
         document.getElementById(
             "accountContainer"
         );
 
-    if (!container) return;
+
+    if (!container) {
+
+        return;
+
+    }
 
 
     const user =
-        JSON.parse(
-            localStorage.getItem(
-                "rangineh_user"
-            )
-        );
+        getStoredUser();
 
 
     if (!user) {
@@ -755,14 +1563,15 @@ function initializeAccount() {
                 </h1>
 
                 <p>
-                    برای مشاهده حساب کاربری ابتدا وارد شوید.
+                    برای مشاهده حساب کاربری
+                    ابتدا وارد حساب خود شوید.
                 </p>
 
                 <a
                     href="login.html"
                     class="button button-primary"
                 >
-                    ورود
+                    ورود به حساب
                 </a>
 
             </div>
@@ -783,17 +1592,34 @@ function initializeAccount() {
             </span>
 
             <h1>
-                سلام ${user.name} 👋
+                سلام ${user.name || "کاربر"} 👋
             </h1>
 
             <p>
-                ${user.email}
+                ${user.email || ""}
             </p>
 
+            ${
+                isAdmin()
+
+                ? `
+
+                    <a
+                        href="admin.html"
+                        class="button button-primary"
+                    >
+                        🛠️ ورود به پنل مدیریت
+                    </a>
+
+                `
+
+                : ""
+            }
 
             <button
-                id="logoutButton"
-                class="button button-primary"
+                id="accountPageLogout"
+                type="button"
+                class="button button-secondary"
             >
                 خروج از حساب
             </button>
@@ -804,7 +1630,9 @@ function initializeAccount() {
 
 
     document
-        .getElementById("logoutButton")
+        .getElementById(
+            "accountPageLogout"
+        )
         ?.addEventListener(
             "click",
             () => {
@@ -823,7 +1651,7 @@ function initializeAccount() {
 
 
 /* ==========================================
-   INIT
+   INITIALIZE
 ========================================== */
 
 document.addEventListener(
@@ -834,7 +1662,40 @@ document.addEventListener(
 
         initializeHome();
 
-        initializeAccount();
+        initializeAccountMenu();
+
+        initializeAccountPage();
 
     }
 );
+
+
+/* ==========================================
+   GLOBAL API
+========================================== */
+
+window.RanginehApp = {
+
+    getCart,
+
+    saveCart,
+
+    addToCart,
+
+    removeFromCart,
+
+    updateCartItem,
+
+    clearCart,
+
+    updateCartCount,
+
+    showToast,
+
+    formatPrice,
+
+    isAdmin,
+
+    getStoredUser
+
+};

@@ -1,28 +1,58 @@
 <!DOCTYPE html>
+
 <html lang="fa" dir="rtl">
 
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="مشاهده مشخصات و خرید محصول از فروشگاه رنگینه"
+    >
 
     <title>محصول | رنگینه</title>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/product.css">
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/product.css"
+    >
 
 </head>
 
+
 <body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header class="header">
 
     <div class="container header-container">
 
-        <a href="index.html" class="logo">
+
+        <!-- LOGO -->
+
+        <a
+            href="index.html"
+            class="logo"
+        >
 
             <span class="logo-icon">
-                ر
+                🎨
             </span>
 
             رنگینه
@@ -30,29 +60,45 @@
         </a>
 
 
+        <!-- NAVIGATION -->
+
         <nav class="navigation">
 
-            <a href="index.html">
+            <a
+                href="index.html"
+            >
                 فروشگاه
             </a>
 
-            <a href="about.html">
+
+            <a
+                href="about.html"
+            >
                 درباره ما
             </a>
 
-            <a href="account.html">
+
+            <a
+                href="account.html"
+            >
                 حساب کاربری
             </a>
 
         </nav>
 
 
-        <a href="cart.html" class="cart-button">
+        <!-- CART -->
+
+        <a
+            href="cart.html"
+            class="cart-button"
+            aria-label="سبد خرید"
+        >
 
             🛒
 
             <span class="cart-count">
-                0
+                ۰
             </span>
 
         </a>
@@ -62,30 +108,73 @@
 </header>
 
 
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main class="container product-page">
 
-    <a href="index.html" class="back-link">
+
+    <a
+        href="index.html"
+        class="back-link"
+    >
         ← بازگشت به فروشگاه
     </a>
 
 
     <div id="productDetails"></div>
 
+
 </main>
 
 
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer class="footer">
 
-    <div class="copyright">
-        © ۱۴۰۵ رنگینه
+    <div class="container">
+
+        <div class="copyright">
+
+            © ۱۴۰۵ رنگینه
+            ·
+            تمامی حقوق محفوظ است.
+
+        </div>
+
     </div>
 
 </footer>
 
 
+
+<!-- =========================================
+     TOAST
+========================================= -->
+
+<div
+    class="toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
 <script src="js/products.js"></script>
+
 <script src="js/app.js"></script>
+
 <script src="js/product.js"></script>
+
 
 </body>
 
