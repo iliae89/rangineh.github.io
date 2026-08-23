@@ -17,7 +17,6 @@
 
     <title>رنگینه | فروشگاه رنگ</title>
 
-
     <link
         rel="stylesheet"
         href="css/style.css"
@@ -29,9 +28,9 @@
 <body>
 
 
-<!-- =========================
+<!-- =========================================
      HEADER
-========================= -->
+========================================= -->
 
 <header class="site-header">
 
@@ -78,12 +77,14 @@
 
         <nav class="main-nav">
 
+
             <a
                 href="index.html"
                 class="nav-link active"
             >
                 فروشگاه
             </a>
+
 
             <a
                 href="about.html"
@@ -93,14 +94,16 @@
             </a>
 
 
-            <!-- ACCOUNT -->
+            <!-- =================================
+                 ACCOUNT
+            ================================== -->
 
             <div class="account-wrapper">
 
                 <button
+                    type="button"
                     class="account-button"
                     id="accountButton"
-                    type="button"
                     aria-expanded="false"
                 >
 
@@ -113,20 +116,21 @@
                     </span>
 
                     <span class="account-arrow">
-                       ⌄
+                        ⌄
                     </span>
 
                 </button>
 
 
-                <!-- ACCOUNT MENU -->
+                <!-- ACCOUNT DROPDOWN -->
 
                 <div
                     class="account-menu"
                     id="accountMenu"
                 >
 
-                    <!-- وقتی کاربر وارد نشده -->
+
+                    <!-- GUEST -->
 
                     <div
                         id="guestAccountMenu"
@@ -160,7 +164,7 @@
                     </div>
 
 
-                    <!-- وقتی کاربر وارد شده -->
+                    <!-- LOGGED USER -->
 
                     <div
                         id="userAccountMenu"
@@ -207,7 +211,7 @@
                         </a>
 
 
-                        <!-- ADMIN -->
+                        <!-- ADMIN INSIDE ACCOUNT -->
 
                         <a
                             href="admin.html"
@@ -236,7 +240,30 @@
             </div>
 
 
-            <!-- CART -->
+            <!-- =================================
+                 ADMIN DIRECT BUTTON
+            ================================== -->
+
+            <a
+                href="admin.html"
+                id="adminHeaderButton"
+                class="admin-header-button hidden"
+            >
+
+                <span class="admin-header-icon">
+                    🛠️
+                </span>
+
+                <span>
+                    پنل مدیریت
+                </span>
+
+            </a>
+
+
+            <!-- =================================
+                 CART
+            ================================== -->
 
             <a
                 href="cart.html"
@@ -249,7 +276,7 @@
                 </span>
 
                 <span class="cart-count">
-                    0
+                    ۰
                 </span>
 
             </a>
@@ -262,13 +289,14 @@
 
 
 
-<!-- =========================
+<!-- =========================================
      HERO
-========================= -->
+========================================= -->
 
 <section class="hero">
 
     <div class="container hero-content">
+
 
         <div class="hero-text">
 
@@ -276,11 +304,19 @@
                 فروشگاه تخصصی رنگ
             </span>
 
+
             <h1>
+
                 رنگی که
-                <span>فضای تو</span>
+
+                <span>
+                    فضای تو
+                </span>
+
                 را می‌سازد.
+
             </h1>
+
 
             <p>
                 انواع رنگ‌های ساختمانی، صنعتی و دکوراتیو
@@ -297,6 +333,7 @@
                     مشاهده محصولات
                 </a>
 
+
                 <a
                     href="about.html"
                     class="button button-secondary"
@@ -312,21 +349,29 @@
         <div class="hero-art">
 
             <div class="paint-can paint-can-one">
+
                 <span>
                     رنگینه
                 </span>
+
             </div>
 
+
             <div class="paint-can paint-can-two">
+
                 <span>
                     COLOR
                 </span>
+
             </div>
 
+
             <div class="paint-can paint-can-three">
+
                 <span>
                     🎨
                 </span>
+
             </div>
 
         </div>
@@ -337,9 +382,9 @@
 
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- =========================================
+     SHOP
+========================================= -->
 
 <main
     class="container shop-container"
@@ -347,9 +392,7 @@
 >
 
 
-    <!-- =========================
-         TOP FILTER BAR
-    ========================= -->
+    <!-- TOP BAR -->
 
     <section class="shop-toolbar">
 
@@ -359,9 +402,11 @@
                 فروشگاه
             </span>
 
+
             <h2>
                 محصولات رنگینه
             </h2>
+
 
             <span
                 id="resultCount"
@@ -381,6 +426,7 @@
             >
                 مرتب‌سازی:
             </label>
+
 
             <select
                 id="sortSelect"
@@ -411,16 +457,14 @@
 
 
 
-    <!-- =========================
-         SHOP LAYOUT
-    ========================= -->
+    <!-- SHOP LAYOUT -->
 
     <div class="shop-layout">
 
 
-        <!-- =========================
-             FILTER SIDEBAR
-        ========================= -->
+        <!-- =================================
+             FILTERS
+        ================================== -->
 
         <aside class="filters">
 
@@ -431,6 +475,7 @@
                     <span class="section-label">
                         فیلترها
                     </span>
+
 
                     <h3>
                         انتخاب رنگ
@@ -458,6 +503,7 @@
                     قیمت
                 </h4>
 
+
                 <input
                     type="range"
                     id="priceRange"
@@ -467,11 +513,13 @@
                     value="5000000"
                 >
 
+
                 <div class="price-range-info">
 
                     <span>
                         تا
                     </span>
+
 
                     <strong id="maxPrice">
                         ۵٬۰۰۰٬۰۰۰ تومان
@@ -489,6 +537,7 @@
                 <h4>
                     کد رنگی
                 </h4>
+
 
                 <input
                     type="text"
@@ -508,6 +557,7 @@
                     اسم رنگ
                 </h4>
 
+
                 <input
                     type="text"
                     id="colorNameFilter"
@@ -526,6 +576,7 @@
                     کاربرد رنگ
                 </h4>
 
+
                 <div
                     id="usageFilters"
                     class="checkbox-list"
@@ -541,6 +592,7 @@
                 <h4>
                     حجم رنگ
                 </h4>
+
 
                 <div
                     id="volumeFilters"
@@ -558,6 +610,7 @@
                     بسته‌بندی
                 </h4>
 
+
                 <div
                     id="packageFilters"
                     class="checkbox-list"
@@ -574,6 +627,7 @@
                     ویژگی‌های تخصصی
                 </h4>
 
+
                 <div
                     id="featureFilters"
                     class="checkbox-list"
@@ -585,9 +639,9 @@
 
 
 
-        <!-- =========================
+        <!-- =================================
              PRODUCTS
-        ========================= -->
+        ================================== -->
 
         <section class="products-section">
 
@@ -606,9 +660,11 @@
                     🎨
                 </div>
 
+
                 <h2>
                     محصولی پیدا نشد
                 </h2>
+
 
                 <p>
                     فیلترها یا عبارت جستجو را تغییر بده.
@@ -624,19 +680,21 @@
 
 
 
-<!-- =========================
+<!-- =========================================
      FOOTER
-========================= -->
+========================================= -->
 
 <footer class="site-footer">
 
     <div class="container footer-content">
+
 
         <div>
 
             <div class="footer-logo">
                 🎨 رنگینه
             </div>
+
 
             <p>
                 فروشگاه تخصصی انواع رنگ
@@ -651,13 +709,16 @@
                 فروشگاه
             </a>
 
+
             <a href="about.html">
                 درباره ما
             </a>
 
+
             <a href="account.html">
                 حساب کاربری
             </a>
+
 
             <a href="cart.html">
                 سبد خرید
@@ -680,7 +741,9 @@
 
 
 
-<!-- SCRIPTS -->
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
 
 <script src="js/products.js"></script>
 

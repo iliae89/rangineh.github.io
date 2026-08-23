@@ -1,5 +1,5 @@
 /* ==========================================
-   RANGINEH MAIN APP
+   RANGINEH APP
 ========================================== */
 
 
@@ -12,7 +12,9 @@ function getCart() {
     try {
 
         return JSON.parse(
-            localStorage.getItem("rangineh_cart")
+            localStorage.getItem(
+                "rangineh_cart"
+            )
         ) || [];
 
     } catch {
@@ -36,30 +38,37 @@ function saveCart(cart) {
 }
 
 
-/* ==========================================
-   CART COUNT
-========================================== */
-
 function updateCartCount() {
 
     const cart = getCart();
 
-    const count = cart.reduce(
-        (total, item) => {
-            return total + Number(item.quantity || 0);
-        },
-        0
-    );
+
+    const count =
+        cart.reduce(
+            (total, item) => {
+
+                return total +
+                    Number(
+                        item.quantity || 0
+                    );
+
+            },
+            0
+        );
 
 
     document
         .querySelectorAll(".cart-count")
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            element.textContent =
-                count.toLocaleString("fa-IR");
+                element.textContent =
+                    count.toLocaleString(
+                        "fa-IR"
+                    );
 
-        });
+            }
+        );
 
 }
 
@@ -68,10 +77,15 @@ function updateCartCount() {
    ADD TO CART
 ========================================== */
 
-function addToCart(productId, quantity = 1) {
+function addToCart(
+    productId,
+    quantity = 1
+) {
 
     const product =
-        getProductById(productId);
+        getProductById(
+            productId
+        );
 
 
     if (!product) {
@@ -85,7 +99,8 @@ function addToCart(productId, quantity = 1) {
     }
 
 
-    const cart = getCart();
+    const cart =
+        getCart();
 
 
     const existing =
@@ -98,7 +113,8 @@ function addToCart(productId, quantity = 1) {
 
     if (existing) {
 
-        existing.quantity += Number(quantity);
+        existing.quantity +=
+            Number(quantity);
 
     } else {
 
@@ -106,7 +122,8 @@ function addToCart(productId, quantity = 1) {
 
             id: product.id,
 
-            quantity: Number(quantity)
+            quantity:
+                Number(quantity)
 
         });
 
@@ -130,13 +147,17 @@ function addToCart(productId, quantity = 1) {
 function showToast(message) {
 
     let toast =
-        document.querySelector(".toast");
+        document.querySelector(
+            ".toast"
+        );
 
 
     if (!toast) {
 
         toast =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
         toast.className =
             "toast";
@@ -178,37 +199,34 @@ function showToast(message) {
 
 
 /* ==========================================
-   FORMAT PRICE
+   PRICE
 ========================================== */
 
 function formatPrice(price) {
 
-    return Number(price).toLocaleString(
-        "fa-IR"
-    ) + " تومان";
+    return Number(price)
+        .toLocaleString("fa-IR")
+        + " تومان";
 
 }
 
 
 /* ==========================================
-   ACCOUNT MENU
+   ACCOUNT + ADMIN HEADER
 ========================================== */
 
 function initializeAccountMenu() {
 
-    const button =
+    const accountButton =
         document.getElementById(
             "accountButton"
         );
 
 
-    const menu =
+    const accountMenu =
         document.getElementById(
             "accountMenu"
         );
-
-
-    if (!button || !menu) return;
 
 
     const guestMenu =
@@ -235,9 +253,15 @@ function initializeAccountMenu() {
         );
 
 
-    const adminLink =
+    const adminPanelLink =
         document.getElementById(
             "adminPanelLink"
+        );
+
+
+    const adminHeaderButton =
+        document.getElementById(
+            "adminHeaderButton"
         );
 
 
@@ -247,11 +271,21 @@ function initializeAccountMenu() {
         );
 
 
-    /* --------------------------------------
-       OPEN / CLOSE
-    -------------------------------------- */
+    if (
+        !accountButton ||
+        !accountMenu
+    ) {
 
-    button.addEventListener(
+        return;
+
+    }
+
+
+    /* ======================================
+       ACCOUNT DROPDOWN
+    ====================================== */
+
+    accountButton.addEventListener(
         "click",
         event => {
 
@@ -259,18 +293,18 @@ function initializeAccountMenu() {
 
 
             const isOpen =
-                menu.classList.contains(
+                accountMenu.classList.contains(
                     "show"
                 );
 
 
-            menu.classList.toggle(
+            accountMenu.classList.toggle(
                 "show",
                 !isOpen
             );
 
 
-            button.setAttribute(
+            accountButton.setAttribute(
                 "aria-expanded",
                 String(!isOpen)
             );
@@ -279,9 +313,9 @@ function initializeAccountMenu() {
     );
 
 
-    /* --------------------------------------
-       CLOSE OUTSIDE
-    -------------------------------------- */
+    /* ======================================
+       CLOSE WHEN CLICK OUTSIDE
+    ====================================== */
 
     document.addEventListener(
         "click",
@@ -293,12 +327,12 @@ function initializeAccountMenu() {
                 )
             ) {
 
-                menu.classList.remove(
+                accountMenu.classList.remove(
                     "show"
                 );
 
 
-                button.setAttribute(
+                accountButton.setAttribute(
                     "aria-expanded",
                     "false"
                 );
@@ -309,9 +343,9 @@ function initializeAccountMenu() {
     );
 
 
-    /* --------------------------------------
-       CURRENT USER
-    -------------------------------------- */
+    /* ======================================
+       GET CURRENT USER
+    ====================================== */
 
     let user = null;
 
@@ -332,9 +366,9 @@ function initializeAccountMenu() {
     }
 
 
-    /* --------------------------------------
-       GUEST
-    -------------------------------------- */
+    /* ======================================
+       USER IS NOT LOGGED IN
+    ====================================== */
 
     if (!user) {
 
@@ -348,14 +382,30 @@ function initializeAccountMenu() {
         );
 
 
+        /*
+         * VERY IMPORTANT:
+         * Admin button is hidden
+         * for guests.
+         */
+
+        adminHeaderButton?.classList.add(
+            "hidden"
+        );
+
+
+        adminPanelLink?.classList.add(
+            "hidden"
+        );
+
+
         return;
 
     }
 
 
-    /* --------------------------------------
-       LOGGED IN USER
-    -------------------------------------- */
+    /* ======================================
+       USER IS LOGGED IN
+    ====================================== */
 
     guestMenu?.classList.add(
         "hidden"
@@ -367,46 +417,76 @@ function initializeAccountMenu() {
     );
 
 
+    /* USER NAME */
+
     if (userName) {
 
         userName.textContent =
-            user.name || "کاربر";
+            user.name ||
+            "کاربر";
 
     }
 
+
+    /* USER EMAIL */
 
     if (userEmail) {
 
         userEmail.textContent =
-            user.email || "";
+            user.email ||
+            "";
 
     }
 
 
-    /* --------------------------------------
+    /* ======================================
        ADMIN
-    -------------------------------------- */
+    ====================================== */
 
     if (
         user.isAdmin === true
     ) {
 
-        adminLink?.classList.remove(
+        /*
+         * SHOW ADMIN BUTTON
+         * BESIDE ACCOUNT
+         */
+
+        adminHeaderButton?.classList.remove(
+            "hidden"
+        );
+
+
+        /*
+         * ALSO SHOW ADMIN
+         * INSIDE ACCOUNT MENU
+         */
+
+        adminPanelLink?.classList.remove(
             "hidden"
         );
 
     } else {
 
-        adminLink?.classList.add(
+        /*
+         * NORMAL USER
+         */
+
+        adminHeaderButton?.classList.add(
+            "hidden"
+        );
+
+
+        adminPanelLink?.classList.add(
             "hidden"
         );
 
     }
 
 
-    /* --------------------------------------
+    /* ======================================
        LOGOUT
-    -------------------------------------- */
+    ====================================== */
 
     logoutButton?.addEventListener(
         "click",
@@ -447,7 +527,6 @@ function createProductCard(product) {
 
         <article class="product-card">
 
-
             <a
                 href="product.html?id=${product.id}"
                 class="product-image"
@@ -462,7 +541,6 @@ function createProductCard(product) {
 
 
             <div class="product-body">
-
 
                 <span class="product-brand">
                     ${product.brand}
@@ -480,9 +558,11 @@ function createProductCard(product) {
                         ${product.usage}
                     </span>
 
+
                     <span>
                         ${product.volume}
                     </span>
+
 
                     <span>
                         ${product.package}
@@ -493,9 +573,10 @@ function createProductCard(product) {
 
                 <div class="product-bottom">
 
-
                     <strong>
-                        ${formatPrice(product.price)}
+                        ${formatPrice(
+                            product.price
+                        )}
                     </strong>
 
 
@@ -508,12 +589,9 @@ function createProductCard(product) {
                         +
                     </button>
 
-
                 </div>
 
-
             </div>
-
 
         </article>
 
@@ -523,7 +601,7 @@ function createProductCard(product) {
 
 
 /* ==========================================
-   FILTER HELPERS
+   UNIQUE FILTER VALUES
 ========================================== */
 
 function uniqueValues(
@@ -559,25 +637,27 @@ function createCheckboxFilters(
 
 
     container.innerHTML =
-        values.map(
-            value => `
+        values
+            .map(
+                value => `
 
-                <label>
+                    <label>
 
-                    <input
-                        type="checkbox"
-                        name="${name}"
-                        value="${value}"
-                    >
+                        <input
+                            type="checkbox"
+                            name="${name}"
+                            value="${value}"
+                        >
 
-                    <span>
-                        ${value}
-                    </span>
+                        <span>
+                            ${value}
+                        </span>
 
-                </label>
+                    </label>
 
-            `
-        ).join("");
+                `
+            )
+            .join("");
 
 }
 
@@ -631,7 +711,7 @@ function initializeHome() {
         );
 
 
-    /* FILTER OPTIONS */
+    /* FILTERS */
 
     createCheckboxFilters(
         "usageFilters",
@@ -673,22 +753,23 @@ function initializeHome() {
     );
 
 
-    function getSelected(
-        name
-    ) {
+    function getSelected(name) {
 
         return [
             ...document.querySelectorAll(
                 `input[name="${name}"]:checked`
             )
         ].map(
-            input => input.value
+            input =>
+                input.value
         );
 
     }
 
 
-    /* RENDER */
+    /* ======================================
+       RENDER
+    ====================================== */
 
     function render() {
 
@@ -703,19 +784,22 @@ function initializeHome() {
         const search =
             searchInput?.value
                 .trim()
-                .toLowerCase() || "";
+                .toLowerCase() ||
+                "";
 
 
         const colorCode =
             colorCodeFilter?.value
                 .trim()
-                .toLowerCase() || "";
+                .toLowerCase() ||
+                "";
 
 
         const colorName =
             colorNameFilter?.value
                 .trim()
-                .toLowerCase() || "";
+                .toLowerCase() ||
+                "";
 
 
         const maxPrice =
@@ -747,6 +831,7 @@ function initializeHome() {
 
                     const searchMatch =
                         !search ||
+
                         product.name
                             .toLowerCase()
                             .includes(search) ||
@@ -766,6 +851,7 @@ function initializeHome() {
 
                     const codeMatch =
                         !colorCode ||
+
                         product.color
                             .toLowerCase()
                             .includes(
@@ -775,6 +861,7 @@ function initializeHome() {
 
                     const nameMatch =
                         !colorName ||
+
                         product.colorName
                             .toLowerCase()
                             .includes(
@@ -816,14 +903,23 @@ function initializeHome() {
 
 
                     return (
+
                         searchMatch &&
+
                         codeMatch &&
+
                         nameMatch &&
+
                         priceMatch &&
+
                         usageMatch &&
+
                         volumeMatch &&
+
                         packageMatch &&
+
                         featureMatch
+
                     );
 
                 }
@@ -901,15 +997,15 @@ function initializeHome() {
 
         /* COUNT */
 
-        const count =
+        const resultCount =
             document.getElementById(
                 "resultCount"
             );
 
 
-        if (count) {
+        if (resultCount) {
 
-            count.textContent =
+            resultCount.textContent =
                 `${result.length.toLocaleString("fa-IR")} محصول`;
 
         }
@@ -917,15 +1013,15 @@ function initializeHome() {
 
         /* EMPTY */
 
-        const empty =
+        const emptyState =
             document.getElementById(
                 "emptyState"
             );
 
 
-        if (empty) {
+        if (emptyState) {
 
-            empty.classList.toggle(
+            emptyState.classList.toggle(
                 "hidden",
                 result.length !== 0
             );
@@ -1075,7 +1171,7 @@ function initializeHome() {
 
 
 /* ==========================================
-   ADD BUTTON
+   ADD TO CART BUTTON
 ========================================== */
 
 document.addEventListener(
@@ -1147,14 +1243,17 @@ function initializeAccount() {
                     حساب کاربری
                 </span>
 
+
                 <h1>
                     هنوز وارد نشده‌ای
                 </h1>
+
 
                 <p>
                     برای مشاهده حساب کاربری
                     ابتدا وارد شوید.
                 </p>
+
 
                 <a
                     href="login.html"
@@ -1180,9 +1279,11 @@ function initializeAccount() {
                 حساب کاربری
             </span>
 
+
             <h1>
                 سلام ${user.name} 👋
             </h1>
+
 
             <p>
                 ${user.email}
@@ -1191,6 +1292,7 @@ function initializeAccount() {
 
             ${
                 user.isAdmin === true
+
                 ?
 
                 `
@@ -1201,6 +1303,7 @@ function initializeAccount() {
                     ورود به پنل مدیریت
                 </a>
                 `
+
                 :
 
                 ""
@@ -1214,7 +1317,7 @@ function initializeAccount() {
 
 
 /* ==========================================
-   INIT
+   INITIALIZE
 ========================================== */
 
 document.addEventListener(
