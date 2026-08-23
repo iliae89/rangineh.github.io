@@ -1,279 +1,196 @@
 /* ==========================================
-   RANGINEH ACCOUNT MENU
+   RANGINEH
+   ACCOUNT + ADMIN MENU
 ========================================== */
+
+
+/* ---------- ACCOUNT WRAPPER ---------- */
 
 .account-wrapper {
     position: relative;
 }
 
 
-/* ==========================================
-   ACCOUNT BUTTON
-========================================== */
+/* ---------- ACCOUNT BUTTON ---------- */
 
 .account-button {
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 7px;
 
     height: 42px;
-
     padding: 0 13px;
 
-    border: 1px solid var(--border);
-
+    border: 1px solid #dfc9b9;
     border-radius: 12px;
 
-    background: var(--surface);
-
-    color: var(--brown);
+    background: #fffaf6;
+    color: #5a382b;
 
     font-family: inherit;
-
-    font-size: 12px;
-
-    font-weight: 800;
+    font-size: 13px;
+    font-weight: 700;
 
     cursor: pointer;
 
-    transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease;
-
+    transition: all 0.2s ease;
 }
-
 
 .account-button:hover {
-
-    background:
-        var(--surface-dark);
-
-    border-color:
-        rgba(185, 86, 53, .25);
-
+    background: #f7e9df;
+    border-color: #d5b3a0;
 }
-
 
 .account-button:active {
-
-    transform:
-        scale(.98);
-
+    transform: scale(0.97);
 }
-
 
 .account-icon {
-
     font-size: 17px;
-
 }
-
 
 .account-arrow {
+    font-size: 14px;
 
-    font-size: 15px;
+    transition: transform 0.2s ease;
+}
 
-    transition:
-        transform .2s ease;
-
+.account-button[aria-expanded="true"] .account-arrow {
+    transform: rotate(180deg);
 }
 
 
-.account-button[aria-expanded="true"]
-.account-arrow {
-
-    transform:
-        rotate(180deg);
-
-}
-
-
-/* ==========================================
-   ACCOUNT DROPDOWN
-========================================== */
+/* ---------- ACCOUNT DROPDOWN ---------- */
 
 .account-menu {
-
     position: absolute;
 
-    top:
-        calc(100% + 10px);
-
+    top: calc(100% + 10px);
     left: 0;
 
     width: 280px;
-
-    z-index: 1000;
 
     padding: 8px;
 
     box-sizing: border-box;
 
-    background:
-        var(--surface);
+    background: #fffaf6;
 
-    border:
-        1px solid var(--border);
-
-    border-radius: 18px;
+    border: 1px solid #dfc9b9;
+    border-radius: 17px;
 
     box-shadow:
-        0 18px 45px
-        rgba(70, 40, 25, .15);
+        0 15px 40px rgba(75, 45, 30, 0.15);
+
+    z-index: 9999;
 
     opacity: 0;
-
     visibility: hidden;
-
     pointer-events: none;
 
-    transform:
-        translateY(-8px)
-        scale(.98);
-
-    transform-origin:
-        top left;
+    transform: translateY(-8px);
 
     transition:
-        opacity .2s ease,
-        visibility .2s ease,
-        transform .2s ease;
-
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s ease;
 }
 
-
 .account-menu.show {
-
     opacity: 1;
 
     visibility: visible;
 
     pointer-events: auto;
 
-    transform:
-        translateY(0)
-        scale(1);
-
+    transform: translateY(0);
 }
 
 
-/* ==========================================
-   ACCOUNT SECTION
-========================================== */
+/* ---------- MENU SECTION ---------- */
 
 .account-menu-section {
-
     padding: 12px;
-
 }
 
+
+/* ---------- MENU TITLE ---------- */
 
 .account-menu-title {
-
-    color:
-        var(--brown);
+    color: #5a382b;
 
     font-size: 16px;
-
-    font-weight: 900;
-
+    font-weight: 800;
 }
 
 
+/* ---------- MENU DESCRIPTION ---------- */
+
 .account-menu-description {
+    margin: 6px 0 14px;
 
-    margin:
-        6px 0 15px;
-
-    color:
-        var(--muted);
+    color: #8a7165;
 
     font-size: 12px;
 
     line-height: 1.8;
-
 }
 
 
-/* ==========================================
-   ACCOUNT USER
-========================================== */
+/* ---------- ACCOUNT USER ---------- */
 
 .account-user {
-
     display: flex;
 
     align-items: center;
 
     gap: 10px;
-
 }
-
 
 .account-avatar {
-
-    width: 45px;
-
-    height: 45px;
-
-    display: grid;
-
-    place-items: center;
-
-    flex-shrink: 0;
-
-    border-radius: 14px;
-
-    background:
-        #ead3c3;
-
-    font-size: 21px;
-
-}
-
-
-.account-user strong {
-
-    display: block;
-
-    color:
-        var(--brown);
-
-    font-size: 14px;
-
-}
-
-
-.account-user span {
-
-    display: block;
-
-    margin-top: 3px;
-
-    color:
-        var(--muted);
-
-    font-size: 10px;
-
-}
-
-
-/* ==========================================
-   ACCOUNT BUTTONS
-========================================== */
-
-.account-menu-button {
+    width: 44px;
+    height: 44px;
 
     display: flex;
 
     align-items: center;
+    justify-content: center;
 
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background: #ead5c6;
+
+    font-size: 20px;
+}
+
+.account-user strong {
+    display: block;
+
+    color: #5a382b;
+
+    font-size: 14px;
+}
+
+.account-user span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #927a6d;
+
+    font-size: 10px;
+}
+
+
+/* ---------- LOGIN / REGISTER ---------- */
+
+.account-menu-button {
+    display: flex;
+
+    align-items: center;
     justify-content: center;
 
     width: 100%;
@@ -282,6 +199,8 @@
 
     margin-top: 7px;
 
+    box-sizing: border-box;
+
     border-radius: 11px;
 
     text-decoration: none;
@@ -290,73 +209,50 @@
 
     font-weight: 800;
 
-    box-sizing: border-box;
-
-    transition:
-        .2s ease;
-
+    transition: all 0.2s ease;
 }
 
+
+/* PRIMARY */
 
 .account-menu-button.primary {
+    background: #b85b3b;
 
-    background:
-        var(--primary);
-
-    color:
-        white;
-
+    color: #ffffff;
 }
-
 
 .account-menu-button.primary:hover {
+    background: #a94f32;
 
-    filter:
-        brightness(.95);
-
-    transform:
-        translateY(-1px);
-
+    transform: translateY(-1px);
 }
 
+
+/* SECONDARY */
 
 .account-menu-button.secondary {
+    background: #f3e4d9;
 
-    background:
-        var(--surface-dark);
-
-    color:
-        var(--brown);
-
+    color: #6a4030;
 }
-
 
 .account-menu-button.secondary:hover {
-
-    background:
-        #ead8c8;
-
+    background: #ead4c4;
 }
 
 
-/* ==========================================
-   MENU ITEMS
-========================================== */
+/* ---------- MENU ITEMS ---------- */
 
 .account-menu-item {
-
     display: flex;
 
     align-items: center;
-
-    gap: 10px;
 
     width: 100%;
 
     min-height: 42px;
 
-    padding:
-        0 12px;
+    padding: 0 12px;
 
     box-sizing: border-box;
 
@@ -364,17 +260,15 @@
 
     border-radius: 11px;
 
-    background:
-        transparent;
+    background: transparent;
 
-    color:
-        var(--brown);
+    color: #5a382b;
 
     font-family: inherit;
 
     font-size: 12px;
 
-    font-weight: 800;
+    font-weight: 700;
 
     text-align: right;
 
@@ -382,77 +276,48 @@
 
     cursor: pointer;
 
-    transition:
-        background .2s ease;
-
+    transition: background 0.2s ease;
 }
-
 
 .account-menu-item:hover {
-
-    background:
-        var(--surface-dark);
-
+    background: #f5e8df;
 }
 
 
-/* ==========================================
-   ADMIN INSIDE ACCOUNT
-========================================== */
+/* ---------- ADMIN INSIDE ACCOUNT ---------- */
 
 .admin-menu-item {
+    margin-top: 3px;
 
-    background:
-        #f1dfd2 !important;
+    background: #f1ded2 !important;
 
-    color:
-        #91472f !important;
-
+    color: #91472f !important;
 }
-
 
 .admin-menu-item:hover {
-
-    background:
-        #e8cdbd !important;
-
+    background: #e9cdbd !important;
 }
 
 
-/* ==========================================
-   LOGOUT
-========================================== */
+/* ---------- LOGOUT ---------- */
 
 .logout-item {
-
-    color:
-        #a64c3c;
-
+    color: #a94c3a;
 }
-
 
 .logout-item:hover {
-
-    background:
-        #f5dfda;
-
+    background: #f5dfda;
 }
 
 
-/* ==========================================
-   DIVIDER
-========================================== */
+/* ---------- DIVIDER ---------- */
 
 .account-menu-divider {
-
     height: 1px;
 
-    margin:
-        8px 4px;
+    margin: 8px 4px;
 
-    background:
-        var(--border);
-
+    background: #ead9cd;
 }
 
 
@@ -461,32 +326,28 @@
 ========================================== */
 
 .admin-header-button {
-
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 7px;
 
     height: 42px;
 
-    padding:
-        0 13px;
+    padding: 0 13px;
 
     box-sizing: border-box;
 
-    border:
-        1px solid #e3c9b8;
+    border: 1px solid #dfc1af;
 
     border-radius: 12px;
 
-    background:
-        #f1dfd2;
+    background: #f2dfd2;
 
-    color:
-        #91472f;
+    color: #91472f;
+
+    font-family: inherit;
 
     font-size: 12px;
 
@@ -496,40 +357,23 @@
 
     white-space: nowrap;
 
-    transition:
-        background .2s ease,
-        border-color .2s ease,
-        transform .2s ease;
-
+    transition: all 0.2s ease;
 }
-
 
 .admin-header-button:hover {
+    background: #e8cbbb;
 
-    background:
-        #e8cdbd;
+    border-color: #d2ad98;
 
-    border-color:
-        #d9b6a2;
-
-    transform:
-        translateY(-1px);
-
+    transform: translateY(-1px);
 }
-
 
 .admin-header-button:active {
-
-    transform:
-        scale(.98);
-
+    transform: scale(0.97);
 }
 
-
 .admin-header-icon {
-
     font-size: 16px;
-
 }
 
 
@@ -538,9 +382,7 @@
 ========================================== */
 
 .hidden {
-
     display: none !important;
-
 }
 
 
@@ -551,65 +393,43 @@
 @media (max-width: 900px) {
 
     .account-button-text {
-
         display: none;
-
     }
-
 
     .account-button {
-
         width: 42px;
 
         padding: 0;
-
     }
-
 
     .account-arrow {
-
         display: none;
-
     }
-
-
-    .admin-header-button span:last-child {
-
-        display: none;
-
-    }
-
 
     .admin-header-button {
-
         width: 42px;
 
         padding: 0;
-
     }
 
+    .admin-header-button span:last-child {
+        display: none;
+    }
 }
 
 
 @media (max-width: 700px) {
 
     .account-menu {
-
         position: fixed;
 
-        top: 72px;
+        top: 70px;
 
         left: 15px;
-
         right: 15px;
 
         width: auto;
 
         max-width: none;
-
-        transform-origin:
-            top center;
-
     }
-
 }
